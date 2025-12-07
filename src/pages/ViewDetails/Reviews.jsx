@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { FaAngleLeft, FaAngleRight, FaStar } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
 import Select from "../../utils/Select";
@@ -9,7 +9,7 @@ import useFetch from "../../hooks/useFetch";
 import Loader from "../../utils/Loader";
 import usePost from "../../hooks/usePost";
 
-const Reviews = ({ foodId }) => {
+const Reviews = memo(({ foodId }) => {
   const { user } = useAuth();
   const { register, handleSubmit, reset } = useForm();
   const { data, isLoading, isError, error } = useFetch({
@@ -17,8 +17,6 @@ const Reviews = ({ foodId }) => {
     queryKey: ["reviews", foodId],
     enabled: !!foodId,
   });
-
-  console.log(data?.reviews);
 
   const createReview = usePost({
     url: "/meals/review-create",
@@ -59,38 +57,36 @@ const Reviews = ({ foodId }) => {
         </div>
       </div>
 
-      {/* Review Cards (Grid or Slider Content) */}
       <div className="grid grid-cols-1 md:grid-cols-2 items-center justify-center gap-5 mb-10">
-        {data &&
-          data?.reviews?.map((review, index) => (
-            <div
-              key={index}
-              className="rounded-lg h-48 p-5 bg-gray-100 shadow-sm hover:shadow-md transition"
-            >
-              <div className="flex justify-between items-center mb-2">
-                <div className="flex items-center justify-center gap-2">
-                  <img
-                    className="h-8 w-8 rounded-full"
-                    src={review?.reviewerImage}
-                    alt=""
-                  />
-                  <h3 className="font-semibold text-gray-800">
-                    {review.reviewerName}
-                  </h3>
-                </div>
-                <span className="flex items-center text-primary">
-                  <FaStar />{" "}
-                  <p className="ml-1 text-gray-700 font-medium">
-                    {review.rating}
-                  </p>
-                </span>
+        {data?.reviews?.map((review, index) => (
+          <div
+            key={index}
+            className="rounded-lg h-48 p-5 bg-gray-100 shadow-sm hover:shadow-md transition"
+          >
+            <div className="flex justify-between items-center mb-2">
+              <div className="flex items-center justify-center gap-2">
+                <img
+                  className="h-8 w-8 rounded-full"
+                  src={review?.reviewerImage}
+                  alt=""
+                />
+                <h3 className="font-semibold text-gray-800">
+                  {review.reviewerName}
+                </h3>
               </div>
-
-              <p className="text-gray-600">{review.comment}</p>
-
-              <p className="text-secondary text-sm mt-7">2 days ago</p>
+              <span className="flex items-center text-primary">
+                <FaStar />{" "}
+                <p className="ml-1 text-gray-700 font-medium">
+                  {review.rating}
+                </p>
+              </span>
             </div>
-          ))}
+
+            <p className="text-gray-600">{review.comment}</p>
+
+            <p className="text-secondary text-sm mt-7">2 days ago</p>
+          </div>
+        ))}
       </div>
 
       {/* Add Review Form */}
@@ -127,11 +123,11 @@ const Reviews = ({ foodId }) => {
             ></textarea>
           </div>
 
-          <Button>Give Review</Button>
+          <Button type="submit">Give Review</Button>
         </form>
       </div>
     </div>
   );
-};
+});
 
 export default Reviews;

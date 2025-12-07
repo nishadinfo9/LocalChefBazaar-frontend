@@ -1,7 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 import { FaQuoteRight } from "react-icons/fa";
 
-const ReviewCard = ({ reviewData }) => {
+const ReviewCard = memo(({ reviewData }) => {
   const { comment, reviewerImage, reviewerName, rating } = reviewData;
   return (
     <div className="card bg-gray-200 text-primary-content w-60 rounded-2xl shadow-md p-4 flex flex-col gap-4">
@@ -25,6 +25,6 @@ const ReviewCard = ({ reviewData }) => {
       </div>
     </div>
   );
-};
+});
 
 export default ReviewCard;

@@ -2,6 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import { memo } from "react";
 
 const images = [
   "/images/one.jpg",
@@ -12,7 +13,7 @@ const images = [
   "/images/six.jpg",
 ];
 
-const Slide = () => {
+const Slide = memo(() => {
   return (
     <div className="w-full max-w-7xl mx-auto overflow-hidden">
       <Swiper
@@ -34,6 +35,6 @@ const Slide = () => {
       </Swiper>
     </div>
   );
-};
+});
 
 export default Slide;

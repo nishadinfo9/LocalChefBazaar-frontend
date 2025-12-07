@@ -1,7 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 
-const FoodCard = ({ meal }) => {
+const FoodCard = memo(({ meal }) => {
   const { rating, price, foodImage, _id, chefName } = meal;
   return (
     <div className="card bg-white w-full md:w-96 shadow-2xl p-5 flex flex-col">
@@ -47,6 +47,6 @@ const FoodCard = ({ meal }) => {
       </div>
     </div>
   );
-};
+});
 
 export default FoodCard;

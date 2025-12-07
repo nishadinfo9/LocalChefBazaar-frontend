@@ -1,5 +1,6 @@
 import React from "react";
 import useFetch from "../../../../hooks/useFetch";
+import MelesCard from "./MelesCard";
 
 const MyMeals = () => {
   const { data, isLoading, isError, error } = useFetch({
@@ -23,21 +24,7 @@ const MyMeals = () => {
           </thead>
           <tbody>
             {data?.meals?.map((meal) => (
-              <tr>
-                <td>
-                  <div className="flex items-center gap-3">
-                    <div className="avatar">
-                      <div className="mask mask-squircle h-12 w-12">
-                        <img src={meal.foodImage} alt={meal.foodName} />
-                      </div>
-                    </div>
-                    <div></div>
-                  </div>
-                </td>
-                <td>{meal.foodName}</td>
-                <td>{meal.price}</td>
-                <td>{meal.rating}</td>
-              </tr>
+              <MelesCard key={meal._id} meal={meal} />
             ))}
           </tbody>
         </table>

@@ -1,29 +1,63 @@
-import React from "react";
-import { FaStar } from "react-icons/fa";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import Loader from "../../utils/Loader";
 import Reviews from "./Reviews";
+import Button from "../../utils/Button";
+import usePost from "../../hooks/usePost";
+import MealInfo from "./MealInfo";
+import Ingredients from "./Ingredients";
 
 const ViewDetails = () => {
+  const [isFavorite, setIsFavorite] = useState(false);
   const { id } = useParams();
   const { data, isLoading, isError, error } = useFetch({
     url: `/meals/single-meal/${id}`,
     queryKey: ["meals"],
   });
-
-  const meals = data?.meal || {};
+  const meals = useMemo(() => data?.meal || {}, [data]);
 
   const {
-    foodName,
-    chefName,
-    foodImage,
-    price,
-    rating,
-    ingredients,
-    deliveryTime,
-    chefExperience,
+    foodName = "",
+    chefName = "",
+    foodImage = "",
+    price = 0,
+    rating = 0,
+    ingredients = [],
+    deliveryTime = "",
+    chefExperience = "",
   } = meals;
+
+  //Favorite
+  const { data: favoriteData = {}, refetch } = useFetch({
+    url: `/meal/get-favorite-meal/${id}`,
+    queryKey: ["favorites", id],
+  });
+
+  // Initialize favorite state
+  useEffect(() => {
+    if (favoriteData.favorited !== undefined) {
+      setIsFavorite(favoriteData.favorited);
+    }
+  }, [favoriteData]);
+
+  const addFavorite = usePost({
+    url: `/meal/add-favorite-meal/${id}`,
+    // invalidateQueries: [["favorites", id]],
+  });
+
+  const addFavoriteMealHandler = useCallback(() => {
+    addFavorite.mutate(
+      {},
+      {
+        onSuccess: (res) => {
+          setIsFavorite(res.favorited);
+        },
+      }
+    );
+  }, [addFavorite]);
+
+  console.log(isFavorite);
 
   if (isLoading) return <Loader />;
   if (isError) return <p>{error}</p>;
@@ -43,63 +77,30 @@ const ViewDetails = () => {
 
         {/* Info Section */}
         <div className="grid md:grid-cols-2 gap-8">
-          <div className="space-y-4">
-            <p className="text-lg">
-              <span className="font-semibold text-gray-700">Chef Name: </span>
-              {chefName}
-            </p>
-            <p className="text-lg">
-              <span className="font-semibold text-gray-700">Price: </span>
-              <span className="text-secondary font-bold">{price} ৳</span>
-            </p>
-            <p className="text-lg flex items-center gap-2">
-              <span className="font-semibold text-gray-700">Rating:</span>
-              <span className="flex items-center gap-1 text-primary">
-                <FaStar /> {rating}
-              </span>
-            </p>
-
-            <p className="text-lg">
-              <span className="font-semibold text-gray-700">
-                Delivery Area:
-              </span>{" "}
-              {"All area"}
-            </p>
-          </div>
-
-          {/* Right */}
-          <div className="space-y-4">
-            <p className="text-lg">
-              <span className="font-semibold text-gray-700">
-                Estimated Delivery:
-              </span>{" "}
-              {deliveryTime} mins
-            </p>
-            <p className="text-lg">
-              <span className="font-semibold text-gray-700">
-                Chef Experience:
-              </span>{" "}
-              {chefExperience} years
-            </p>
-
-            <div>
-              <p className="font-semibold text-gray-700 text-lg mb-2">
-                Ingredients:
-              </p>
-              <ul className="list-disc ml-6 text-gray-600">
-                {ingredients?.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
+          <MealInfo
+            chefName={chefName}
+            price={price}
+            rating={rating}
+            deliveryTime={deliveryTime}
+            chefExperience={chefExperience}
+          />
+          <Ingredients ingredients={ingredients} />
         </div>
 
         {/* CTA Button */}
-        <div className="text-center mt-10">
-          <button className="px-8 py-3 cursor-pointer bg-secondary text-white font-semibold rounded-full shadow-lg hover:bg-secondary/90 transition">
+        <div className="text-center space-x-10 mt-10">
+          <Button size="w-3xs" rounded="rounded-3xl">
             Order Now
-          </button>
+          </Button>
+          <Button
+            onClick={addFavoriteMealHandler}
+            className="justify-self-end"
+            size="w-3xs"
+            bg="bg-primary"
+            rounded="rounded-3xl"
+          >
+            {isFavorite ? "Favorited" : "Add To Favorite"}
+          </Button>
         </div>
       </div>
       <Reviews foodId={id} />

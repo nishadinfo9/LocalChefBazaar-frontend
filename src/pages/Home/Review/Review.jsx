@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
@@ -13,18 +13,18 @@ import useFetch from "../../../hooks/useFetch";
 import Loader from "../../../utils/Loader";
 
 const Review = () => {
-  const [review, setReview] = useState([]);
-  // http://localhost:3000/api/v1/meals/all-reviews
-  useEffect(() => {
-    fetch("/review.json")
-      .then((res) => res.json())
-      .then((data) => setReview(data));
-  }, []);
-
   const { data, isLoading, isError, error } = useFetch({
     url: "/meals/all-reviews",
     queryKey: ["reviews"],
   });
+
+  const slides = useMemo(() => {
+    return data?.reviews?.map((reviewData) => (
+      <SwiperSlide key={reviewData.id}>
+        <ReviewCard reviewData={reviewData} />
+      </SwiperSlide>
+    ));
+  }, [data?.reviews]);
 
   if (isLoading) return <Loader />;
   if (isError) return <p>{error}</p>;
@@ -62,13 +62,7 @@ const Review = () => {
         modules={[EffectCoverflow, Pagination, Autoplay]}
         className="mySwiper"
       >
-        <div className="grid md:grid-cols-5 grid-cols-2">
-          {data?.reviews?.map((reviewData) => (
-            <SwiperSlide key={reviewData.id}>
-              <ReviewCard reviewData={reviewData} />
-            </SwiperSlide>
-          ))}
-        </div>
+        <div className="grid md:grid-cols-5 grid-cols-2">{slides}</div>
       </Swiper>
     </div>
   );
