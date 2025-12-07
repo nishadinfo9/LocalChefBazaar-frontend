@@ -1,0 +1,77 @@
+import React, { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
+
+// import required modules
+import { Autoplay, EffectCoverflow, Pagination } from "swiper/modules";
+import ReviewCard from "./ReviewCard";
+import useFetch from "../../../hooks/useFetch";
+import Loader from "../../../utils/Loader";
+
+const Review = () => {
+  const [review, setReview] = useState([]);
+  // http://localhost:3000/api/v1/meals/all-reviews
+  useEffect(() => {
+    fetch("/review.json")
+      .then((res) => res.json())
+      .then((data) => setReview(data));
+  }, []);
+
+  const { data, isLoading, isError, error } = useFetch({
+    url: "/meals/all-reviews",
+    queryKey: ["reviews"],
+  });
+
+  if (isLoading) return <Loader />;
+  if (isError) return <p>{error}</p>;
+
+  return (
+    <div className="my-20">
+      <div className="flex flex-col items-center justify-center gap-5 my-10 ">
+        <h3 className="text-5xl text-center font-bold my-8 text-secondary">
+          Review
+        </h3>
+        <p className="md:w-3xl text-center">
+          Discover a world of fresh, delicious, and high-quality foods at Food
+          Bazar. From farm-fresh vegetables to tasty snacks, we bring
+          convenience, flavor, and happiness to your table every day!
+        </p>
+      </div>
+      <Swiper
+        loop={true}
+        effect={"coverflow"}
+        grabCursor={true}
+        centeredSlides={true}
+        slidesPerView={3}
+        coverflowEffect={{
+          rotate: 30,
+          stretch: "50%",
+          depth: 200,
+          modifier: 0.75,
+          slideShadows: true,
+        }}
+        autoplay={{
+          delay: 2000,
+          disableOnInteraction: false,
+        }}
+        pagination={true}
+        modules={[EffectCoverflow, Pagination, Autoplay]}
+        className="mySwiper"
+      >
+        <div className="grid md:grid-cols-5 grid-cols-2">
+          {data?.reviews?.map((reviewData) => (
+            <SwiperSlide key={reviewData.id}>
+              <ReviewCard reviewData={reviewData} />
+            </SwiperSlide>
+          ))}
+        </div>
+      </Swiper>
+    </div>
+  );
+};
+
+export default Review;
