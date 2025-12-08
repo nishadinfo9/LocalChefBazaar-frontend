@@ -8,6 +8,7 @@ const Button = ({
   rounded = "rounded-xl",
   type = "submit",
   className = "",
+  ...props
 }) => {
   return (
     <button
@@ -17,6 +18,7 @@ const Button = ({
         btn ${bg} ${size} ${rounded} font-medium hover:${bg}/90
         ${className}
       `}
+      {...props}
     >
       {children}
     </button>

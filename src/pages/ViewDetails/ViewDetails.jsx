@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import Loader from "../../utils/Loader";
 import Reviews from "./Reviews";
@@ -9,11 +9,12 @@ import MealInfo from "./MealInfo";
 import Ingredients from "./Ingredients";
 
 const ViewDetails = () => {
+  const navigate = useNavigate();
   const [isFavorite, setIsFavorite] = useState(false);
   const { id } = useParams();
   const { data, isLoading, isError, error } = useFetch({
     url: `/meals/single-meal/${id}`,
-    queryKey: ["meals"],
+    queryKey: ["meals", id],
   });
   const meals = useMemo(() => data?.meal || {}, [data]);
 
@@ -89,7 +90,11 @@ const ViewDetails = () => {
 
         {/* CTA Button */}
         <div className="text-center space-x-10 mt-10">
-          <Button size="w-3xs" rounded="rounded-3xl">
+          <Button
+            onClick={() => navigate(`/meals/order/${id}`)}
+            size="w-3xs"
+            rounded="rounded-3xl"
+          >
             Order Now
           </Button>
           <Button

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 import usePost from "../../../hooks/usePost";
 import Profile from "./Profile";
+import Logo from "../../Logo/Logo";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -67,9 +68,7 @@ const Header = () => {
               ))}
           </ul>
         </div>
-        <Link to={"/"} className="text-xl font-bold">
-          LocalChefBazaar
-        </Link>
+        <Logo />
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">

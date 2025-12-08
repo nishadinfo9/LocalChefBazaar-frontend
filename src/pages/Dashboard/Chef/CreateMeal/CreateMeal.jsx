@@ -54,6 +54,7 @@ const CreateMeal = () => {
 
   return (
     <div className="max-w-lg mx-auto  p-6 rounded-xl shadow-2xl my-10">
+      <title>Local Chef Bazaar - Create Meal</title>
       <h2 className="text-2xl font-bold mb-4 text-center">Create Meal</h2>
       <form className="space-y-2" onSubmit={handleSubmit(createMealHandler)}>
         <Input

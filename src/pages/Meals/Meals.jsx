@@ -15,6 +15,7 @@ const Meals = () => {
 
   return (
     <div className="my-10">
+      <title>Local Chef Bazaar - Meals</title>
       <div>
         <h2 className="md:text-5xl text-4xl md:pl-0 pl-5 font-bold my-10 text-secondary">
           All Meals

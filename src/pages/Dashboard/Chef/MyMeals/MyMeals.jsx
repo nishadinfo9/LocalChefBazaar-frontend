@@ -10,6 +10,7 @@ const MyMeals = () => {
 
   return (
     <div>
+      <title>Local Chef Bazaar - My Meals</title>
       <h2>My Meals</h2>
       <div className="overflow-x-auto">
         <table className="table">
