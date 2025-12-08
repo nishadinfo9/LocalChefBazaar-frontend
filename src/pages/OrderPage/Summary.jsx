@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import Button from "../../utils/Button";
 
-const Summary = memo(({ form, foodName, totalPrice, price, qualityWatch }) => {
+const Summary = memo(({ form, foodName, totalPrice, price, quantity }) => {
   return (
     <div className="card bg-white p-6 rounded-2xl shadow-md">
       <h2 className="text-lg font-semibold mb-4">Order Summary</h2>
@@ -19,7 +19,7 @@ const Summary = memo(({ form, foodName, totalPrice, price, qualityWatch }) => {
 
         <div className="flex justify-between text-gray-700">
           <span>Quantity:</span>
-          <span className="font-medium">{qualityWatch}</span>
+          <span className="font-medium">{quantity}</span>
         </div>
 
         <div className="divider my-3"></div>

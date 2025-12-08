@@ -12,10 +12,12 @@ const usePatch = ({ invalidateQueries = [] }) => {
       return api.patch(url, payload);
     },
     onMutate: () => {
-      toast.loading("Updating...");
+      const toastId = toast.loading("Updating...");
+      return { toastId };
     },
 
-    onSuccess: () => {
+    onSuccess: (_, __, context) => {
+      if (context?.toastId) toast.dismiss(context.toastId);
       toast.success("Updated successfully!");
       invalidateQueries.forEach((q) => queryClient.invalidateQueries(q));
     },

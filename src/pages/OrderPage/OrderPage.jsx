@@ -1,24 +1,28 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Input from "../../utils/Input";
 import { useForm } from "react-hook-form";
 import Select from "../../utils/Select";
 import Summary from "./Summary";
 import useFetch from "../../hooks/useFetch";
+import Swal from "sweetalert2";
+import usePost from "../../hooks/usePost";
+import Loader from "../../utils/Loader";
 
 const OrderPage = () => {
   const { mealId } = useParams();
+  const navigate = useNavigate();
   const { register, handleSubmit, watch, setValue } = useForm({
     defaultValues: { quantity: 1, orderTime: "" },
   });
 
-  const { data } = useFetch({
+  const { data, isLoading, isError, error } = useFetch({
     url: `/meals/single-meal/${mealId}`,
     queryKey: ["meal", mealId],
   });
 
   const meals = data?.meal || {};
-  const { foodName = "", chefId = "", price = 0, userEmail = "" } = meals;
+  const { foodName = "", chefId = "", price, userEmail = "" } = meals;
 
   const quantity = watch("quantity") || 1;
   const totalPrice = useMemo(() => price * quantity, [price, quantity]);
@@ -32,10 +36,38 @@ const OrderPage = () => {
     setValue("orderTime", time);
   }, [setValue]);
 
+  const createOrder = usePost({
+    url: `/order/create/${mealId}`,
+    invalidateQueries: [["orders"]],
+  });
+
+  //place order
   const onSubmit = (data) => {
-    data.totalPrice = totalPrice;
-    console.log(data);
+    Swal.fire({
+      title: "Please Confirm Your Order",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Place Order",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        data.totalPrice = totalPrice;
+        data.price = parseInt(price);
+        data.quantity = parseInt(quantity);
+        console.log(data);
+        createOrder.mutate(data, {
+          onSuccess: (data) => {
+            navigate("/dashboard/my-orders");
+          },
+        });
+      }
+    });
   };
+
+  if (isLoading) return <Loader />;
+  if (isError) return <p>{error}</p>;
+
   return (
     <div className="min-h-screen py-10 px-4">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -58,6 +90,15 @@ const OrderPage = () => {
               />
 
               <Input
+                type="email"
+                bg="white"
+                value={userEmail}
+                readOnly
+                label={"User Email"}
+                {...register("userEmail", { required: true })}
+              />
+
+              <Input
                 type="number"
                 bg="white"
                 value={price}
@@ -75,13 +116,6 @@ const OrderPage = () => {
                 {...register("quantity", { required: true, min: 1 })}
               />
 
-              <Select
-                label={"Order Status"}
-                bg="bg-white"
-                options={["pending"]}
-                {...register("orderStatus", { required: true })}
-              />
-
               <Input
                 type="time"
                 bg="white"
@@ -90,12 +124,19 @@ const OrderPage = () => {
               />
 
               <Input
-                type="email"
+                type="text"
                 bg="white"
-                value={userEmail}
+                value={chefId}
                 readOnly
-                label={"User Email"}
-                {...register("userEmail", { required: true })}
+                label={"Chef Id"}
+                {...register("chefId", { required: true })}
+              />
+
+              <Select
+                label={"Order Status"}
+                bg="bg-white"
+                options={["pending"]}
+                {...register("orderStatus", { required: true })}
               />
 
               <Input
@@ -103,14 +144,6 @@ const OrderPage = () => {
                 bg="white"
                 label={"User Address"}
                 {...register("userAddress", { required: true })}
-              />
-
-              <Input
-                type="text"
-                bg="white"
-                value={chefId}
-                label={"Chef Id"}
-                {...register("chefId", { required: true })}
               />
             </form>
           </div>

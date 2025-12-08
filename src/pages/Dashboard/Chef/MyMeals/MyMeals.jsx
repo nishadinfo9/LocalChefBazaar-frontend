@@ -1,12 +1,20 @@
 import React from "react";
 import useFetch from "../../../../hooks/useFetch";
 import MelesCard from "./MelesCard";
+import Loader from "../../../../utils/Loader";
 
 const MyMeals = () => {
   const { data, isLoading, isError, error } = useFetch({
     url: "/meals/my-meals",
     queryKey: ["meals"],
   });
+
+  if (isLoading) return <Loader />;
+  if (isError)
+    return (
+      <p className="text-red-500">{error?.message || "Failed to load meals"}</p>
+    );
+  if (!data?.meals?.length) return <p>No meals found.</p>;
 
   return (
     <div>

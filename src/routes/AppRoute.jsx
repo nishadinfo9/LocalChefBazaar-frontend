@@ -14,6 +14,9 @@ import MyProfile from "../pages/Dashboard/MyProfile/MyProfile";
 import CreateMeal from "../pages/Dashboard/Chef/CreateMeal/CreateMeal";
 import MyMeals from "../pages/Dashboard/Chef/MyMeals/MyMeals";
 import OrderPage from "../pages/OrderPage/OrderPage";
+import MyOrders from "../pages/Dashboard/User/MyOrders/MyOrders";
+import PaymentSuccess from "../pages/Dashboard/User/Payment/PaymentSuccess";
+import PaymentCancel from "../pages/Dashboard/User/Payment/PaymentCancel";
 
 const AppRoute = () => {
   const router = createBrowserRouter([
@@ -39,6 +42,9 @@ const AppRoute = () => {
         { path: "/dashboard/profile", Component: MyProfile },
         { path: "/dashboard/create-meal", Component: CreateMeal },
         { path: "/dashboard/my-meals", Component: MyMeals },
+        { path: "/dashboard/my-orders", Component: MyOrders },
+        { path: "/dashboard/payments-success", Component: PaymentSuccess },
+        { path: "/dashboard/payments-cancel", Component: PaymentCancel },
       ],
     },
   ]);

@@ -2,6 +2,7 @@ import React from "react";
 import { CgProfile } from "react-icons/cg";
 import { FiHome } from "react-icons/fi";
 import { IoCreate } from "react-icons/io5";
+import { LuShoppingCart } from "react-icons/lu";
 import { PiListFill } from "react-icons/pi";
 import { RxDashboard } from "react-icons/rx";
 import { Link, Outlet } from "react-router-dom";
@@ -13,6 +14,11 @@ const DashboardLayout = () => {
       path: "/dashboard",
       name: "Dashboard",
       icon: <RxDashboard className="text-lg" />,
+    },
+    {
+      path: "/dashboard/my-orders",
+      name: "My Orders",
+      icon: <LuShoppingCart className="text-lg" />,
     },
     {
       path: "/dashboard/profile",
