@@ -1,5 +1,6 @@
 import React from "react";
 import usePost from "../../../../hooks/usePost";
+import { Link } from "react-router-dom";
 
 const OrderCard = ({ order }) => {
   const {
@@ -32,10 +33,15 @@ const OrderCard = ({ order }) => {
   };
 
   return (
-    <div className="grid grid-cols-3 gap-4 items-center relative">
+    <div className="grid grid-cols-3 gap-4 mt-2 items-center relative">
       <div className="absolute -top-6 gap-1 text-sm flex items-center justify-center">
         <p>Order:</p>
-        <p className="text-blue-600 text-xs font-medium">#ORDER123456</p>
+        <Link
+          to={`/meals/${foodId}`}
+          className="text-blue-600 text-xs font-medium"
+        >
+          #{foodId}
+        </Link>
       </div>
       {/* Left  */}
       <div className="flex items-start gap-3 text-gray-600">
