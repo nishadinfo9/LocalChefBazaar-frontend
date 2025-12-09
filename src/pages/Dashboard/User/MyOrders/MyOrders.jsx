@@ -15,8 +15,6 @@ const MyOrders = () => {
 
   return (
     <div className="w-full my-5 max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-5">
-      <div className="flex items-center justify-between mb-4"></div>
-
       <div className="">
         {data?.orders?.map((order) => (
           <OrderCard key={order._id} order={order} />

@@ -20,6 +20,9 @@ import PaymentCancel from "../pages/Dashboard/User/Payment/PaymentCancel";
 import MyReviews from "../pages/Dashboard/User/MyReviews/MyReviews";
 import FavoriteMeals from "../pages/Dashboard/User/FavoriteMeals/FavoriteMeals";
 import PaymentHistory from "../pages/Dashboard/User/Payment/PaymentHistory";
+import OrderRequests from "../pages/Dashboard/Chef/OrderRequests/OrderRequests";
+import ManageUser from "../pages/Dashboard/Admin/ManageUser/ManageUser";
+import ManageRequests from "../pages/Dashboard/Admin/ManageRequests/ManageRequests";
 
 const AppRoute = () => {
   const router = createBrowserRouter([
@@ -49,8 +52,11 @@ const AppRoute = () => {
         { path: "/dashboard/payment-history", Component: PaymentHistory },
         { path: "/dashboard/my-reviews", Component: MyReviews },
         { path: "/dashboard/favorite-meals", Component: FavoriteMeals },
+        { path: "/dashboard/order-requests", Component: OrderRequests },
         { path: "/dashboard/payments-success", Component: PaymentSuccess },
         { path: "/dashboard/payments-cancel", Component: PaymentCancel },
+        { path: "/dashboard/manage-users", Component: ManageUser },
+        { path: "/dashboard/manage-requests", Component: ManageRequests },
       ],
     },
   ]);

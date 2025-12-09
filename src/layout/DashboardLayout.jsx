@@ -4,13 +4,19 @@ import { FiHome } from "react-icons/fi";
 import { GrFavorite } from "react-icons/gr";
 import { IoCreateOutline } from "react-icons/io5";
 import { LuShoppingCart } from "react-icons/lu";
-import { MdOutlinePayment, MdOutlineReviews } from "react-icons/md";
+import {
+  MdManageAccounts,
+  MdOutlinePayment,
+  MdOutlineReviews,
+} from "react-icons/md";
 import { PiListFill } from "react-icons/pi";
 import { RxDashboard } from "react-icons/rx";
-import { Link, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import Profile from "../components/Home/Header/Profile";
 import useAuth from "../hooks/useAuth";
 import Loader from "../utils/Loader";
+import { FaTasks } from "react-icons/fa";
+import { AiOutlineUsergroupAdd } from "react-icons/ai";
 
 const DashboardLayout = () => {
   const { user, loading } = useAuth();
@@ -58,6 +64,21 @@ const DashboardLayout = () => {
       name: "My Meals",
       icon: <PiListFill className="text-lg" />,
     },
+    {
+      path: "/dashboard/order-requests",
+      name: "Order Requests",
+      icon: <FaTasks className="text-lg" />,
+    },
+    {
+      path: "/dashboard/manage-users",
+      name: "Manage Users",
+      icon: <MdManageAccounts className="text-lg" />,
+    },
+    {
+      path: "/dashboard/manage-requests",
+      name: "Manage Request",
+      icon: <AiOutlineUsergroupAdd className="text-lg" />,
+    },
   ];
 
   return (
@@ -65,13 +86,12 @@ const DashboardLayout = () => {
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         {/* Navbar */}
-        <nav className="navbar w-full bg-base-200">
+        <nav className="navbar w-full bg-base-100">
           <label
             htmlFor="my-drawer-4"
             aria-label="open sidebar"
-            className="btn btn-square btn-ghost"
+            className="btn bg-base-100 hover:bg-primary border-none shadow-none"
           >
-            {/* Sidebar toggle icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -103,19 +123,24 @@ const DashboardLayout = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
+        <div className="flex min-h-full flex-col items-start bg-base-100 is-drawer-close:w-14 is-drawer-open:w-64">
           {/* Sidebar content here */}
           <ul className="menu w-full gap-2 grow">
             {dashboardItem.map((nav, i) => (
               <li key={i}>
-                <Link
+                <NavLink
                   to={nav.path}
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                  end={nav.path === "/" || nav.path === "/dashboard"}
+                  className={({ isActive }) =>
+                    `is-drawer-close:tooltip is-drawer-close:tooltip-right ${
+                      isActive ? "bg-primary text-white" : ""
+                    }`
+                  }
                   data-tip={nav.name}
                 >
                   {nav.icon}
                   <span className="is-drawer-close:hidden">{nav.name}</span>
-                </Link>
+                </NavLink>
               </li>
             ))}
           </ul>

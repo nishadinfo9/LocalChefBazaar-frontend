@@ -19,7 +19,7 @@ const MyMeals = () => {
   return (
     <div>
       <title>Local Chef Bazaar - My Meals</title>
-      <h2>My Meals</h2>
+      <h1 className="text-3xl font-bold mb-6">My Meals</h1>
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}

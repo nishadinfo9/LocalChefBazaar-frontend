@@ -1,6 +1,20 @@
 import React from "react";
+import usePost from "../../../hooks/usePost";
 
 const ProfileCard = ({ user }) => {
+  const createRequest = usePost({
+    url: "/user/create-request",
+    invalidateQueries: [["profiles"]],
+  });
+
+  const handleChefRequest = async () => {
+    createRequest.mutate({ requsetType: "chef" });
+  };
+
+  const handleAdminRequest = async () => {
+    createRequest.mutate({ requsetType: "admin" });
+  };
+
   return (
     <div className="max-w-xl mx-auto bg-white shadow-lg rounded-xl p-6 ">
       <div className="flex  items-center gap-5">
@@ -46,9 +60,44 @@ const ProfileCard = ({ user }) => {
           )}
         </div>
       </div>
+      {/* Role conditional rendering */}
       <div className="flex items-start gap-10">
-        <button className="btn btn-secondary ">Be A Chef</button>
-        <button className="btn btn-primary">Be an Admin</button>
+        {(user?.role === "admin" && (
+          <>
+            <button disabled className="btn btn-secondary ">
+              Be A Chef
+            </button>
+            <button disabled className="btn btn-primary">
+              Be an Admin
+            </button>
+          </>
+        )) ||
+          (user?.role === "user" && (
+            <>
+              <button
+                onClick={() => handleChefRequest(user._id)}
+                className="btn btn-secondary "
+              >
+                Be A Chef
+              </button>
+              <button disabled className="btn btn-primary">
+                Be an Admin
+              </button>
+            </>
+          )) ||
+          (user?.role === "chef" && (
+            <>
+              <button disabled className="btn btn-secondary ">
+                Be A Chef
+              </button>
+              <button
+                onClick={() => handleAdminRequest()} //chefId
+                className="btn btn-primary"
+              >
+                Be an Admin
+              </button>
+            </>
+          ))}
       </div>
     </div>
   );

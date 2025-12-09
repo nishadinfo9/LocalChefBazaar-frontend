@@ -28,7 +28,7 @@ const MyProfile = () => {
   return (
     <div>
       <title>Local Chef Bazaar - Profile</title>
-      MyProfile
+      <h1 className="text-3xl font-bold mb-6">My Profile</h1>
       <ProfileCard user={data?.user} />
     </div>
   );
