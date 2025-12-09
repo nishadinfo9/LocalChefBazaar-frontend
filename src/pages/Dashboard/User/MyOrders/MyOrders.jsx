@@ -9,10 +9,9 @@ const MyOrders = () => {
     queryKey: ["orders"],
   });
 
-  console.log(data);
-
   if (isLoading) return <Loader />;
   if (isError) return <p>{error.message}</p>;
+  if (!data?.orders?.length) return <p>No orders found.</p>;
 
   return (
     <div className="w-full my-5 max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-5">

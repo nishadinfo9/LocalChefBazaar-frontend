@@ -1,8 +1,12 @@
 import React from "react";
 import ProfileCard from "./ProfileCard";
+import useFetch from "../../../hooks/useFetch";
+import useAuth from "../../../hooks/useAuth";
+import Loader from "../../../utils/Loader";
 
 const MyProfile = () => {
-  const user = {
+  const { user } = useAuth();
+  const userData = {
     name: "Nishad",
     email: "nishad@example.com",
     image: "https://via.placeholder.com/150",
@@ -12,11 +16,20 @@ const MyProfile = () => {
     chefId: "CHEF12345",
   };
 
+  const { data, isLoading, isError, error } = useFetch({
+    url: "/user/user-profile",
+    queryKey: ["profile", user?.email],
+    enabled: !!user?.email,
+  });
+
+  if (isLoading) return <Loader />;
+  if (isError) return <p>{error}</p>;
+
   return (
     <div>
       <title>Local Chef Bazaar - Profile</title>
       MyProfile
-      <ProfileCard user={user} />
+      <ProfileCard user={data?.user} />
     </div>
   );
 };

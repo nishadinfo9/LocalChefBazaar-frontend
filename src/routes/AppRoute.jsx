@@ -17,6 +17,9 @@ import OrderPage from "../pages/OrderPage/OrderPage";
 import MyOrders from "../pages/Dashboard/User/MyOrders/MyOrders";
 import PaymentSuccess from "../pages/Dashboard/User/Payment/PaymentSuccess";
 import PaymentCancel from "../pages/Dashboard/User/Payment/PaymentCancel";
+import MyReviews from "../pages/Dashboard/User/MyReviews/MyReviews";
+import FavoriteMeals from "../pages/Dashboard/User/FavoriteMeals/FavoriteMeals";
+import PaymentHistory from "../pages/Dashboard/User/Payment/PaymentHistory";
 
 const AppRoute = () => {
   const router = createBrowserRouter([
@@ -43,6 +46,9 @@ const AppRoute = () => {
         { path: "/dashboard/create-meal", Component: CreateMeal },
         { path: "/dashboard/my-meals", Component: MyMeals },
         { path: "/dashboard/my-orders", Component: MyOrders },
+        { path: "/dashboard/payment-history", Component: PaymentHistory },
+        { path: "/dashboard/my-reviews", Component: MyReviews },
+        { path: "/dashboard/favorite-meals", Component: FavoriteMeals },
         { path: "/dashboard/payments-success", Component: PaymentSuccess },
         { path: "/dashboard/payments-cancel", Component: PaymentCancel },
       ],

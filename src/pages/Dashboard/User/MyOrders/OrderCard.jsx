@@ -94,10 +94,10 @@ const OrderCard = ({ order }) => {
         <button
           disabled={paymentStatus === "paid"}
           onClick={() => paymentHandler(foodId)}
-          className={`btn btn-warning btn-md w-40 rounded-full px-6 
+          className={`btn btn-secondary btn-md w-32 text-lg rounded-full px-6 
       ${paymentStatus === "paid" ? "cursor-not-allowed" : ""}`}
         >
-          {paymentStatus === "pending" ? "Buy Now" : "Bought"}
+          {paymentStatus === "pending" ? "Pay" : "Paid"}
         </button>
       </div>
       <div className="divider col-span-3"></div>

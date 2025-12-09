@@ -1,13 +1,21 @@
 import React from "react";
 import { CgProfile } from "react-icons/cg";
 import { FiHome } from "react-icons/fi";
-import { IoCreate } from "react-icons/io5";
+import { GrFavorite } from "react-icons/gr";
+import { IoCreateOutline } from "react-icons/io5";
 import { LuShoppingCart } from "react-icons/lu";
+import { MdOutlinePayment, MdOutlineReviews } from "react-icons/md";
 import { PiListFill } from "react-icons/pi";
 import { RxDashboard } from "react-icons/rx";
 import { Link, Outlet } from "react-router-dom";
+import Profile from "../components/Home/Header/Profile";
+import useAuth from "../hooks/useAuth";
+import Loader from "../utils/Loader";
 
 const DashboardLayout = () => {
+  const { user, loading } = useAuth();
+  if (loading) return <Loader />;
+
   const dashboardItem = [
     { path: "/", name: "Homepage", icon: <FiHome className="text-lg" /> },
     {
@@ -21,6 +29,21 @@ const DashboardLayout = () => {
       icon: <LuShoppingCart className="text-lg" />,
     },
     {
+      path: "/dashboard/payment-history",
+      name: "Payment History",
+      icon: <MdOutlinePayment className="text-lg" />,
+    },
+    {
+      path: "/dashboard/my-reviews",
+      name: "My review",
+      icon: <MdOutlineReviews className="text-lg" />,
+    },
+    {
+      path: "/dashboard/favorite-meals",
+      name: "Favorite Meal",
+      icon: <GrFavorite className="text-lg" />,
+    },
+    {
       path: "/dashboard/profile",
       name: "My Profile",
       icon: <CgProfile className="text-lg" />,
@@ -28,7 +51,7 @@ const DashboardLayout = () => {
     {
       path: "/dashboard/create-meal",
       name: "Create Meal",
-      icon: <IoCreate className="text-xl" />,
+      icon: <IoCreateOutline className="text-xl" />,
     },
     {
       path: "/dashboard/my-meals",
@@ -42,7 +65,7 @@ const DashboardLayout = () => {
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         {/* Navbar */}
-        <nav className="navbar w-full bg-base-300">
+        <nav className="navbar w-full bg-base-200">
           <label
             htmlFor="my-drawer-4"
             aria-label="open sidebar"
@@ -64,9 +87,12 @@ const DashboardLayout = () => {
               <path d="M14 10l2 2l-2 2"></path>
             </svg>
           </label>
-          <div className="px-4">LocalChefBazaar</div>
+          <div className="flex items-center justify-between w-full px-5">
+            <h2 className="text-lg font-bold">LocalChefBazaar</h2>
+            <Profile profile={user?.profileImage} />
+          </div>
         </nav>
-        <div className="p-4">
+        <div className="p-4 bg-base-100">
           <Outlet />
         </div>
       </div>

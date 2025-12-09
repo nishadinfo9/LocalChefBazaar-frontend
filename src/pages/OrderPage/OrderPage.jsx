@@ -43,8 +43,13 @@ const OrderPage = () => {
 
   //place order
   const onSubmit = (data) => {
+    data.totalPrice = totalPrice;
+    data.price = parseInt(price);
+    data.quantity = parseInt(quantity);
+
     Swal.fire({
-      title: "Please Confirm Your Order",
+      title: `Your total price is ${data.totalPrice}`,
+      text: "Do you want to confirm the order?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -52,12 +57,9 @@ const OrderPage = () => {
       confirmButtonText: "Place Order",
     }).then((result) => {
       if (result.isConfirmed) {
-        data.totalPrice = totalPrice;
-        data.price = parseInt(price);
-        data.quantity = parseInt(quantity);
         console.log(data);
         createOrder.mutate(data, {
-          onSuccess: (data) => {
+          onSuccess: () => {
             navigate("/dashboard/my-orders");
           },
         });

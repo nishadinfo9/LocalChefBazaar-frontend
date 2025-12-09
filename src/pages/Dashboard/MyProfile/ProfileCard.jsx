@@ -2,16 +2,16 @@ import React from "react";
 
 const ProfileCard = ({ user }) => {
   return (
-    <div className="max-w-xl mx-auto shadow-lg rounded-xl p-6 ">
+    <div className="max-w-xl mx-auto bg-white shadow-lg rounded-xl p-6 ">
       <div className="flex  items-center gap-5">
         <img
-          src="/images/user.png"
+          src={user?.profileImage || "/images/user.png"}
           alt="User Profile"
-          className="w-24 h-24 border rounded-full object-cover mb-4"
+          className="w-24 h-24  rounded-full object-cover mb-4"
         />
         <div className="flex flex-col">
-          <h2 className="text-xl font-semibold">{user.name}</h2>
-          <p>{user.address}</p>
+          <h2 className="text-2xl font-semibold">{user?.name}</h2>
+          <p className="font-normal">{user?.address || "Dhaka Bangladesh"}</p>
         </div>
       </div>
 
@@ -20,25 +20,25 @@ const ProfileCard = ({ user }) => {
         <div className="grid grid-cols-2 my-5 gap-5">
           <div className="mt-3">
             <h3 className="text-lg font-bold">Email</h3>
-            <p>{user.email}</p>
+            <p>{user?.email}</p>
           </div>
 
           <div className="mt-3">
             <h3 className="text-lg font-bold">User Status</h3>
             <span
               className={
-                user.status === "fraud" ? "text-red-500" : "text-green-500"
+                user?.status === "fraud" ? "text-red-500" : "text-green-500"
               }
             >
-              {user.status}
+              {user?.status}
             </span>
           </div>
           <div className="mt-3">
             <h3 className="text-lg font-bold">User Role</h3>
-            <p>{user.role}</p>
+            <p>{user?.role}</p>
           </div>
 
-          {user.role === "chef" && (
+          {user?.role === "chef" && (
             <div className="mt-3">
               <h3 className="text-lg font-bold">User Status</h3>
               <span>{user.chefId}</span>
