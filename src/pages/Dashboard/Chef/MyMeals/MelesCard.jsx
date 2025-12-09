@@ -16,6 +16,12 @@ const MelesCard = memo(({ meal }) => {
       <td>{meal.foodName}</td>
       <td>{meal.price}</td>
       <td>{meal.rating}</td>
+      <td className="text-center ">
+        <div className="flex justify-center items-center gap-5 ">
+          <button className="btn btn-error text-white">Delete</button>
+          <button className="btn btn-warning text-white">Edit</button>
+        </div>
+      </td>
     </tr>
   );
 });

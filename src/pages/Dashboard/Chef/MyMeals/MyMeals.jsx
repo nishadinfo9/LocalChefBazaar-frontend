@@ -29,6 +29,7 @@ const MyMeals = () => {
               <th>Food Name</th>
               <th>Price</th>
               <th>Rating</th>
+              <th className="text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
