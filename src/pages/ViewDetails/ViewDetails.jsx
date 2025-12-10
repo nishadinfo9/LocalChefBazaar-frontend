@@ -14,7 +14,7 @@ const ViewDetails = () => {
   const { id } = useParams();
   const { data, isLoading, isError, error } = useFetch({
     url: `/meals/single-meal/${id}`,
-    queryKey: ["meals", id],
+    queryKey: ["single-meal", id],
   });
   const meals = useMemo(() => data?.meal || {}, [data]);
 

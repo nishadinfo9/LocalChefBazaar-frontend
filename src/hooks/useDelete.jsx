@@ -1,4 +1,4 @@
-import { useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useApi from "./useApi";
 import toast from "react-hot-toast";
 
@@ -11,11 +11,13 @@ const useDelete = ({ invalidateQueries = [] }) => {
       return api.delete(url);
     },
     onMutate: () => {
-      toast.loading("Deleting...");
+      const toastId = toast.loading("Deleting...");
+      return { toastId };
     },
 
-    onSuccess: () => {
-      toast.success("Deleting successfully!");
+    onSuccess: (_, __, context) => {
+      toast.dismiss(context.toastId);
+      toast.success("Deleted successfully!");
       invalidateQueries.forEach((q) => queryClient.invalidateQueries(q));
     },
     onError: (error) => {

@@ -1,10 +1,10 @@
 import React from "react";
 import { FaRegEdit, FaTrash } from "react-icons/fa";
 
-const FavoriteTable = ({ item }) => {
+const FavoriteTable = ({ item, deleteFavoriteFood }) => {
   return (
     <tr
-      key={item.id}
+      key={item._id}
       className="hover:bg-secondary/50 transition-all duration-200"
     >
       <td>
@@ -21,8 +21,12 @@ const FavoriteTable = ({ item }) => {
       <td>{item.createdAt}</td>
       <td className="px-4">
         <div className="flex justify-center gap-5">
-          <button className="btn btn-error text-white">Delete</button>
-          <button className="btn btn-warning text-white">Edit</button>
+          <button
+            onClick={() => deleteFavoriteFood(item._id)}
+            className="btn btn-sm btn-error text-white"
+          >
+            Delete
+          </button>
         </div>
       </td>
     </tr>

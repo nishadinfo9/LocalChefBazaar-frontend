@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 
-const OrdersCard = memo(({ order }) => {
+const OrdersCard = memo(({ order, updateOrderStatus }) => {
   const {
     foodImage = "",
     mealName = "",
@@ -35,14 +35,88 @@ const OrdersCard = memo(({ order }) => {
       <td>{paymentStatus}</td>
       <td className="text-center ">
         <div className="flex justify-center items-center gap-5 ">
-          <button className="btn btn-sm btn-error text-white">Cancel</button>
-          <button className="btn btn-sm btn-secondary text-white">
-            Accept
-          </button>
-          <button className="btn btn-sm btn-primary text-white">Deliver</button>
+          {(orderStatus === "pending" && (
+            <>
+              <button
+                onClick={() => updateOrderStatus(order?._id, "reject")}
+                className="btn btn-sm btn-error text-white"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => updateOrderStatus(order?._id, "approve")}
+                className="btn btn-sm btn-secondary text-white"
+              >
+                Accept
+              </button>
+              <button disabled className="btn btn-sm btn-primary text-white">
+                Deliver
+              </button>
+            </>
+          )) ||
+            (orderStatus === "reject" && (
+              <>
+                <button disabled className="btn btn-sm btn-error text-white">
+                  Cancel
+                </button>
+                <button
+                  disabled
+                  className="btn btn-sm btn-secondary text-white"
+                >
+                  Accept
+                </button>
+                <button disabled className="btn btn-sm btn-primary text-white">
+                  Deliver
+                </button>
+              </>
+            )) ||
+            (orderStatus === "deliver" && (
+              <>
+                <button disabled className="btn btn-sm btn-error text-white">
+                  Cancel
+                </button>
+                <button
+                  disabled
+                  className="btn btn-sm btn-secondary text-white"
+                >
+                  Accept
+                </button>
+                <button disabled className="btn btn-sm btn-primary text-white">
+                  Deliver
+                </button>
+              </>
+            )) ||
+            (orderStatus === "approve" && (
+              <>
+                <button disabled className="btn btn-sm btn-error text-white">
+                  Cancel
+                </button>
+                <button
+                  disabled
+                  className="btn btn-sm btn-secondary text-white"
+                >
+                  Accept
+                </button>
+                <button
+                  onClick={() => updateOrderStatus(order?._id, "deliver")}
+                  className="btn btn-sm btn-primary text-white"
+                >
+                  Deliver
+                </button>
+              </>
+            ))}
         </div>
       </td>
     </tr>
   );
 });
 export default OrdersCard;
+
+// button flow
+// {
+//   (orderStatus === "pending" && "enable all disable deliver") ||
+//     (orderStatus === "reject" && "disable all") ||
+//     (orderStatus === "deliver" && "disable all") ||
+//     (orderStatus === "approve" &&
+//       "enable deliver and disable accept and reject");
+// }

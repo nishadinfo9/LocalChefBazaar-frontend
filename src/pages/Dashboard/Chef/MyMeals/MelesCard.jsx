@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 
-const MelesCard = memo(({ meal }) => {
+const MelesCard = memo(({ meal, handleDeleteMeal, handleEditMeal }) => {
   return (
     <tr>
       <td>
@@ -18,8 +18,18 @@ const MelesCard = memo(({ meal }) => {
       <td>{meal.rating}</td>
       <td className="text-center ">
         <div className="flex justify-center items-center gap-5 ">
-          <button className="btn btn-error text-white">Delete</button>
-          <button className="btn btn-warning text-white">Edit</button>
+          <button
+            onClick={() => handleDeleteMeal(meal._id)}
+            className="btn btn-error text-white"
+          >
+            Delete
+          </button>
+          <button
+            onClick={() => handleEditMeal(meal._id)}
+            className="btn btn-warning text-white"
+          >
+            Edit
+          </button>
         </div>
       </td>
     </tr>

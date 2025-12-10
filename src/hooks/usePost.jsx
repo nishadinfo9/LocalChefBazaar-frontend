@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 const usePost = ({ url, invalidateQueries = [] }) => {
   const queryClient = useQueryClient();
   const api = useApi();
+  
   return useMutation({
     mutationFn: async (payload) => {
       const { data } = await api.post(url, payload);

@@ -3,14 +3,28 @@ import FavoriteTable from "./FavoriteTable";
 import useFetch from "../../../../hooks/useFetch";
 import useAuth from "../../../../hooks/useAuth";
 import Loader from "../../../../utils/Loader";
+import useDelete from "../../../../hooks/useDelete";
 
 const FavoriteMeals = () => {
   const { user } = useAuth();
 
-  const { data, isLoading, isError, error } = useFetch({
+  const { data, isLoading, isError, error, refetch } = useFetch({
     url: "/meal/favorite-meals",
     queryKey: ["favorites", user?.email],
   });
+
+  const deleteFavorite = useDelete({ invalidateQueries: [["favorites"]] });
+
+  const deleteFavoriteFood = (favoriteId) => {
+    deleteFavorite.mutate(
+      { url: `/meal/delete-favorite-meals/${favoriteId}` },
+      {
+        onSuccess: () => {
+          refetch();
+        },
+      }
+    );
+  };
 
   if (isLoading) return <Loader />;
   if (isError) return <p>{error}</p>;
@@ -33,7 +47,11 @@ const FavoriteMeals = () => {
           </thead>
           <tbody>
             {data?.favorites?.map((item) => (
-              <FavoriteTable key={item._id} item={item} />
+              <FavoriteTable
+                key={item._id}
+                deleteFavoriteFood={deleteFavoriteFood}
+                item={item}
+              />
             ))}
           </tbody>
         </table>

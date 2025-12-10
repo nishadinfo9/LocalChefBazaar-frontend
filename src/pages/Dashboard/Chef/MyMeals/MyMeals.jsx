@@ -2,18 +2,34 @@ import React from "react";
 import useFetch from "../../../../hooks/useFetch";
 import MelesCard from "./MelesCard";
 import Loader from "../../../../utils/Loader";
+import useDelete from "../../../../hooks/useDelete";
+import { useNavigate } from "react-router-dom";
 
 const MyMeals = () => {
-  const { data, isLoading, isError, error } = useFetch({
+  const navigate = useNavigate();
+  const { data, isLoading, isError, error, refetch } = useFetch({
     url: "/meals/my-meals",
-    queryKey: ["meals"],
+    queryKey: ["my-meals"],
   });
 
-  if (isLoading) return <Loader />;
-  if (isError)
-    return (
-      <p className="text-red-500">{error?.message || "Failed to load meals"}</p>
+  const deleteMeal = useDelete({ invalidateQueries: [["my-meals"]] });
+
+  const handleDeleteMeal = (mealId) => {
+    deleteMeal.mutate(
+      { url: `/meals/delete-meals/${mealId}` },
+      {
+        onSuccess: () => {
+          refetch();
+        },
+      }
     );
+  };
+  const handleEditMeal = (mealId) => {
+    navigate(`/dashboard/create-meal?mealId=${mealId}`);
+  };
+
+  if (isLoading) return <Loader />;
+  if (isError) return <p>{error.message || "Failed to load meals"}</p>;
   if (!data?.meals?.length) return <p>No meals found.</p>;
 
   return (
@@ -34,7 +50,12 @@ const MyMeals = () => {
           </thead>
           <tbody>
             {data?.meals?.map((meal) => (
-              <MelesCard key={meal._id} meal={meal} />
+              <MelesCard
+                handleDeleteMeal={handleDeleteMeal}
+                handleEditMeal={handleEditMeal}
+                key={meal._id}
+                meal={meal}
+              />
             ))}
           </tbody>
         </table>

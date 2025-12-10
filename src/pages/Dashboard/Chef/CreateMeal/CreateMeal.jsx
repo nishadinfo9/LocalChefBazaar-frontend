@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Input from "../../../../utils/Input";
 import { useForm } from "react-hook-form";
 import Select from "../../../../utils/Select";
@@ -6,18 +6,49 @@ import Checkbox from "../../../../utils/Checkbox";
 import Button from "../../../../utils/Button";
 import usePost from "../../../../hooks/usePost";
 import useAuth from "../../../../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import useFetch from "../../../../hooks/useFetch";
+import usePatch from "../../../../hooks/usePatch";
+import Loader from "../../../../utils/Loader";
 
 const CreateMeal = () => {
+  const [mealParams] = useSearchParams();
+  const mealId = mealParams.get("mealId");
+  const isEdit = Boolean(mealId);
+
   const navigate = useNavigate();
   const { user } = useAuth();
   const { register, handleSubmit, reset } = useForm();
+
   const addMeals = usePost({
     url: "/meals/create",
     invalidateQueries: [["meals"]],
   });
 
-  const createMealHandler = (data) => {
+  const updateMeal = usePatch({ invalidateQueries: [["meals", mealId]] });
+
+  const { data, isLoading, isError, error } = useFetch({
+    url: `/meals/single-meal/${mealId}`,
+    queryKey: ["single-meal", mealId],
+    enabled: !!mealId,
+  });
+
+  useEffect(() => {
+    if (isEdit && data?.meal) {
+      reset({
+        foodName: data.meal.foodName,
+        price: data.meal.price,
+        userEmail: data.meal.userEmail,
+        chefName: data.meal.chefName,
+        chefExperience: data.meal.chefExperience,
+        deliveryTime: data.meal.deliveryTime,
+        rating: data.meal.rating,
+        ingredients: data.meal.ingredients,
+      });
+    }
+  }, [data?.meal]);
+
+  const onSubmitForm = (data) => {
     const {
       chefName,
       chefExperience,
@@ -44,19 +75,35 @@ const CreateMeal = () => {
     if (foodImage && foodImage.length > 0) {
       formData.append("foodImage", foodImage[0]);
     }
-    addMeals.mutate(formData, {
-      onSuccess: (data) => {
-        navigate("/dashboard/my-meals");
-      },
-      onError: (error) => console.log(error),
-    });
+
+    if (isEdit) {
+      updateMeal.mutate(
+        { url: `/meals/update-meals/${mealId}`, payload: formData },
+        {
+          onSuccess: () => {
+            navigate("/dashboard/my-meals");
+          },
+        }
+      );
+    } else {
+      addMeals.mutate(formData, {
+        onSuccess: () => {
+          navigate("/dashboard/my-meals");
+        },
+      });
+    }
   };
+
+  if (isLoading) return <Loader />;
+  if (isError) return <p>{error.message}</p>;
 
   return (
     <div className="max-w-lg mx-auto  p-6 rounded-xl shadow-2xl my-10">
       <title>Local Chef Bazaar - Create Meal</title>
-      <h2 className="text-2xl font-bold mb-4 text-center">Create Meal</h2>
-      <form className="space-y-2" onSubmit={handleSubmit(createMealHandler)}>
+      <h2 className="text-2xl font-bold mb-4 text-center">
+        {isEdit ? "Update Meal" : "Create Meal"}
+      </h2>
+      <form className="space-y-2" onSubmit={handleSubmit(onSubmitForm)}>
         <Input
           label={"Food Name"}
           type="text"
@@ -77,7 +124,7 @@ const CreateMeal = () => {
         <Input
           label={"Food Image"}
           type="file"
-          {...register("foodImage", { required: true })}
+          {...register("foodImage", { required: !isEdit ? true : false })}
         />
         <Input
           label={"Price"}
@@ -108,7 +155,7 @@ const CreateMeal = () => {
           {...register("deliveryTime", { required: true })}
         />
         <Button className="w-full btn-secondary my-10" type="submit">
-          Create Meal
+          {isEdit ? "Update Meal" : "Create Meal"}
         </Button>
       </form>
     </div>

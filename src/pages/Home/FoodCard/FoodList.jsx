@@ -11,6 +11,7 @@ const FoodList = () => {
 
   if (isLoading) return <Loader />;
   if (isError) return <p>{error.message}</p>;
+  if (!data?.meals?.length) return <p>Meal Not Found</p>;
 
   return (
     <div className="my-20">

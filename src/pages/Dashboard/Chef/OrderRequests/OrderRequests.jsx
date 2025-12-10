@@ -3,13 +3,30 @@ import useFetch from "../../../../hooks/useFetch";
 import useAuth from "../../../../hooks/useAuth";
 import OrdersCard from "./OrdersCard";
 import Loader from "../../../../utils/Loader";
+import usePatch from "../../../../hooks/usePatch";
 
 const OrderRequests = () => {
   const { user } = useAuth();
-  const { data, isLoading, isError, error } = useFetch({
+  const { data, isLoading, isError, error, refetch } = useFetch({
     url: "/order/chef-orders",
     queryKey: ["orders", user?.email],
   });
+
+  const orderRequestStatus = usePatch({ invalidateQueries: [["orders"]] });
+
+  const updateOrderStatus = async (orderId, orderStatus) => {
+    orderRequestStatus.mutate(
+      {
+        url: `/order/update-orders-status/${orderId}`,
+        payload: { orderStatus },
+      },
+      {
+        onSuccess: () => {
+          refetch();
+        },
+      }
+    );
+  };
 
   if (isLoading) return <Loader />;
   if (isError) return <p>{error.message}</p>;
@@ -37,7 +54,11 @@ const OrderRequests = () => {
           </thead>
           <tbody>
             {data?.orders?.map((order) => (
-              <OrdersCard key={order._id} order={order} />
+              <OrdersCard
+                key={order._id}
+                order={order}
+                updateOrderStatus={updateOrderStatus}
+              />
             ))}
           </tbody>
         </table>
