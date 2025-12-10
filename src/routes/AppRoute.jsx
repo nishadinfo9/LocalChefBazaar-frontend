@@ -23,6 +23,7 @@ import PaymentHistory from "../pages/Dashboard/User/Payment/PaymentHistory";
 import OrderRequests from "../pages/Dashboard/Chef/OrderRequests/OrderRequests";
 import ManageUser from "../pages/Dashboard/Admin/ManageUser/ManageUser";
 import ManageRequests from "../pages/Dashboard/Admin/ManageRequests/ManageRequests";
+import Protected from "../Protected/Protected";
 
 const AppRoute = () => {
   const router = createBrowserRouter([
@@ -36,13 +37,32 @@ const AppRoute = () => {
       children: [
         { index: true, Component: Home },
         { path: "/meals", Component: Meals },
-        { path: "/meals/:id", Component: ViewDetails },
-        { path: "/meals/order/:mealId", Component: OrderPage },
+        {
+          path: "/meals/:id",
+          element: (
+            <Protected>
+              <ViewDetails />
+            </Protected>
+          ),
+        },
+        {
+          path: "/meals/order/:mealId",
+          element: (
+            <Protected>
+              <OrderPage />
+            </Protected>
+          ),
+        },
       ],
     },
     {
       path: "/dashboard",
-      element: <DashboardLayout />,
+      element: (
+        <Protected>
+          <DashboardLayout />
+        </Protected>
+      ),
+      HydrateFallback: <Loader />,
       children: [
         { index: true, Component: Dashboard },
         { path: "/dashboard/profile", Component: MyProfile },

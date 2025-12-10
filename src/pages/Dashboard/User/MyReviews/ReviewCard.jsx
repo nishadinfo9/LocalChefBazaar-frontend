@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { shortTimeAgo } from "../../../../utils/shortTimeAgo";
 
 const ReviewCard = ({ item, handleReviewDelete, handleReviewEdit }) => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -45,7 +46,9 @@ const ReviewCard = ({ item, handleReviewDelete, handleReviewEdit }) => {
         />
         <div>
           <h3 className="font-semibold">{item.reviewerName}</h3>
-          <p className="text-xs text-gray-500">{item.reviewDate}</p>
+          <p className="text-xs text-gray-500">
+            {shortTimeAgo(item.reviewDate)}
+          </p>
         </div>
       </div>
 

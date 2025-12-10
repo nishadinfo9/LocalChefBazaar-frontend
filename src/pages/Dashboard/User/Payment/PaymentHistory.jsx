@@ -19,7 +19,7 @@ const PaymentHistory = () => {
   return (
     <div>
       <title>Local Chef Bazaar - My Meals</title>
-      <h1 className="text-3xl font-bold mb-6">My Meals</h1>
+      <h1 className="text-3xl font-bold mb-6">Payment History</h1>
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
@@ -30,7 +30,6 @@ const PaymentHistory = () => {
               <th>Currency</th>
               <th>Total Price</th>
               <th>Transaction Id</th>
-              <th>trackingId</th>
               <th>Payment Date</th>
             </tr>
           </thead>

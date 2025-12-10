@@ -4,7 +4,7 @@ import useApi from "../hooks/useApi";
 
 const AuthProvider = ({ children }) => {
   const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const api = useApi();
 
@@ -15,7 +15,6 @@ const AuthProvider = ({ children }) => {
         const response = await api.get("/user/current-user");
         setUser(response.data?.user);
       } catch (error) {
-        console.log(error);
         setError(error?.message);
         setUser(null);
       } finally {

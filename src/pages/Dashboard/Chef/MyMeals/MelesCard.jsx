@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import { IoMdStarHalf } from "react-icons/io";
 
 const MelesCard = memo(({ meal, handleDeleteMeal, handleEditMeal }) => {
   return (
@@ -14,8 +15,15 @@ const MelesCard = memo(({ meal, handleDeleteMeal, handleEditMeal }) => {
         </div>
       </td>
       <td>{meal.foodName}</td>
-      <td>{meal.price}</td>
-      <td>{meal.rating}</td>
+      <td>${meal.price}</td>
+      <td>
+        <div className="flex items-center ">
+          {meal.rating}{" "}
+          <span className="text-yellow-500">
+            <IoMdStarHalf />
+          </span>
+        </div>
+      </td>
       <td className="text-center ">
         <div className="flex justify-center items-center gap-5 ">
           <button

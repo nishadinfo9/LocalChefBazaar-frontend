@@ -1,7 +1,7 @@
 import React, { memo } from "react";
+import { shortTimeAgo } from "../../../../utils/shortTimeAgo";
 
 const PaymentCard = memo(({ payment }) => {
-  console.log(payment);
   const {
     mealName = "",
     paymentStatus = "",
@@ -15,10 +15,9 @@ const PaymentCard = memo(({ payment }) => {
       <td>{mealName}</td>
       <td>{paymentStatus}</td>
       <td>{currency}</td>
-      <td>{totalPrice}</td>
+      <td>${totalPrice}</td>
       <td>{transactionId}</td>
-      <td>qweiuhdfsaig</td>
-      <td>{paidAt}</td>
+      <td>{shortTimeAgo(paidAt)}</td>
     </tr>
   );
 });

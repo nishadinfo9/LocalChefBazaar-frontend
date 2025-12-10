@@ -35,7 +35,7 @@ const OrderRequests = () => {
   return (
     <div>
       <title>Local Chef Bazaar - My Meals</title>
-      <h1 className="text-3xl font-bold mb-6">Chef Orders</h1>
+      <h1 className="text-3xl font-bold mb-6">Order Request</h1>
       <div className="overflow-x-auto">
         <table className="table">
           <thead>

@@ -6,15 +6,6 @@ import Loader from "../../../utils/Loader";
 
 const MyProfile = () => {
   const { user } = useAuth();
-  const userData = {
-    name: "Nishad",
-    email: "nishad@example.com",
-    image: "https://via.placeholder.com/150",
-    address: "Dhaka, Bangladesh",
-    role: "chef",
-    status: "active",
-    chefId: "CHEF12345",
-  };
 
   const { data, isLoading, isError, error } = useFetch({
     url: "/user/user-profile",

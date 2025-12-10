@@ -1,6 +1,7 @@
 import React from "react";
 import usePost from "../../../../hooks/usePost";
 import { Link } from "react-router-dom";
+import { shortTimeAgo } from "../../../../utils/shortTimeAgo";
 
 const OrderCard = ({ order }) => {
   const {
@@ -55,12 +56,12 @@ const OrderCard = ({ order }) => {
           <div className="mt-1 text-sm ">
             <h2 className="text-lg font-semibold text-gray-900">{mealName}</h2>
             <p>
-              By: <span className="font-medium">{userEmail}</span>
+              User: <span className="font-medium">{userEmail}</span>
             </p>
           </div>
 
           <div className="mt-3 text-sm  ">
-            <div className="flex gap-4">
+            <div className="flex  gap-4">
               <p>
                 Qty: <span className="font-medium">{quantity}</span>
               </p>
@@ -70,14 +71,17 @@ const OrderCard = ({ order }) => {
             </div>
             <div className="flex gap-4">
               <p>
-                Date: <span className="font-medium">1 PM</span>
+                <span className="">{shortTimeAgo(orderTime)}</span>
               </p>
-              <p>
-                Payment Status:{" "}
-                <span className="text-green-600 font-semibold">
-                  {paymentStatus}
-                </span>
-              </p>
+              <span
+                className={`${
+                  paymentStatus === "pending"
+                    ? "text-yellow-500"
+                    : "text-green-500"
+                } font-semibold`}
+              >
+                {paymentStatus}
+              </span>
             </div>
           </div>
         </div>
@@ -86,7 +90,16 @@ const OrderCard = ({ order }) => {
       {/* Middle  */}
       <div className="flex flex-col items-center justify-center text-center">
         <h2 className="text-lg font-semibold text-gray-900">Order Status</h2>
-        <p className="text-primary text-xl font-semibold">{orderStatus}</p>
+        <p
+          className={` ${
+            (orderStatus === "pending" && "text-yellow-500") ||
+            (orderStatus === "accepted" && "text-green-500") ||
+            (orderStatus === "delivered" && "text-primary") ||
+            (orderStatus === "cancelled" && "text-red-500")
+          } text-xl font-semibold`}
+        >
+          {orderStatus}
+        </p>
       </div>
 
       {/* Right  */}

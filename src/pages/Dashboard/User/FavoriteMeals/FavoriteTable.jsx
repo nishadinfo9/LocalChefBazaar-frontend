@@ -1,5 +1,6 @@
 import React from "react";
 import { FaRegEdit, FaTrash } from "react-icons/fa";
+import { shortTimeAgo } from "../../../../utils/shortTimeAgo";
 
 const FavoriteTable = ({ item, deleteFavoriteFood }) => {
   return (
@@ -17,8 +18,8 @@ const FavoriteTable = ({ item, deleteFavoriteFood }) => {
         </div>
       </td>
       <td>{item.chefName}</td>
-      <td>{item.price}</td>
-      <td>{item.createdAt}</td>
+      <td>${item.price}</td>
+      <td>{shortTimeAgo(item.createdAt)}</td>
       <td className="px-4">
         <div className="flex justify-center gap-5">
           <button

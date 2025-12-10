@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import { shortTimeAgo } from "../../../../utils/shortTimeAgo";
 
 const OrdersCard = memo(({ order, updateOrderStatus }) => {
   const {
@@ -26,11 +27,11 @@ const OrdersCard = memo(({ order, updateOrderStatus }) => {
         </div>
       </td>
       <td>{mealName}</td>
-      <td>{totalPrice}</td>
+      <td>${totalPrice}</td>
       <td>{quantity}</td>
       <td>{orderStatus}</td>
       <td>{userEmail}</td>
-      <td>{orderTime}</td>
+      <td>{shortTimeAgo(orderTime)}</td>
       <td>{userAddress}</td>
       <td>{paymentStatus}</td>
       <td className="text-center ">
@@ -38,13 +39,14 @@ const OrdersCard = memo(({ order, updateOrderStatus }) => {
           {(orderStatus === "pending" && (
             <>
               <button
-                onClick={() => updateOrderStatus(order?._id, "reject")}
+                onClick={() => updateOrderStatus(order?._id, "cancelled")}
                 className="btn btn-sm btn-error text-white"
               >
                 Cancel
               </button>
               <button
-                onClick={() => updateOrderStatus(order?._id, "approve")}
+                disabled={paymentStatus !== "paid"}
+                onClick={() => updateOrderStatus(order?._id, "accepted")}
                 className="btn btn-sm btn-secondary text-white"
               >
                 Accept
@@ -54,7 +56,7 @@ const OrdersCard = memo(({ order, updateOrderStatus }) => {
               </button>
             </>
           )) ||
-            (orderStatus === "reject" && (
+            (orderStatus === "cancelled" && (
               <>
                 <button disabled className="btn btn-sm btn-error text-white">
                   Cancel
@@ -70,7 +72,7 @@ const OrdersCard = memo(({ order, updateOrderStatus }) => {
                 </button>
               </>
             )) ||
-            (orderStatus === "deliver" && (
+            (orderStatus === "delivered" && (
               <>
                 <button disabled className="btn btn-sm btn-error text-white">
                   Cancel
@@ -86,7 +88,7 @@ const OrdersCard = memo(({ order, updateOrderStatus }) => {
                 </button>
               </>
             )) ||
-            (orderStatus === "approve" && (
+            (orderStatus === "accepted" && paymentStatus === "paid" && (
               <>
                 <button disabled className="btn btn-sm btn-error text-white">
                   Cancel
@@ -98,7 +100,7 @@ const OrdersCard = memo(({ order, updateOrderStatus }) => {
                   Accept
                 </button>
                 <button
-                  onClick={() => updateOrderStatus(order?._id, "deliver")}
+                  onClick={() => updateOrderStatus(order?._id, "delivered")}
                   className="btn btn-sm btn-primary text-white"
                 >
                   Deliver
@@ -112,11 +114,9 @@ const OrdersCard = memo(({ order, updateOrderStatus }) => {
 });
 export default OrdersCard;
 
-// button flow
-// {
-//   (orderStatus === "pending" && "enable all disable deliver") ||
-//     (orderStatus === "reject" && "disable all") ||
-//     (orderStatus === "deliver" && "disable all") ||
-//     (orderStatus === "approve" &&
-//       "enable deliver and disable accept and reject");
-// }
+//   Button flow----
+//   orderStatus === "pending" && paymentStatus === "pending" && "enable cancelled - disable all"
+//   orderStatus === "pending" && paymentStatus === "paid" && "enable all - disable deliver"
+//   orderStatus === "accepted" && "enable delivered and all"
+//   orderStatus === "cancelled" && "disable all"
+//   orderStatus === "delivered" && "disable all"

@@ -125,14 +125,16 @@ const OrderPage = () => {
                 {...register("orderTime", { required: true })}
               />
 
-              <Input
-                type="text"
-                bg="white"
-                value={chefId}
-                readOnly
-                label={"Chef Id"}
-                {...register("chefId", { required: true })}
-              />
+              {chefId && (
+                <Input
+                  type="text"
+                  bg="white"
+                  value={chefId}
+                  readOnly
+                  label={"Chef Id"}
+                  {...register("chefId", { required: true })}
+                />
+              )}
 
               <Select
                 label={"Order Status"}

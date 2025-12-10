@@ -37,7 +37,6 @@ const MyReviews = () => {
   if (isError) return <p>{error.message}</p>;
   if (!data?.reviews?.length) return <p>No reviews Found</p>;
 
-  console.log("my review", data?.reviews);
 
   return (
     <div className="min-h-screen bg-base-100 p-6">

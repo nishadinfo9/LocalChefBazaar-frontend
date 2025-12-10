@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import { shortTimeAgo } from "../../../../utils/shortTimeAgo";
 
 const RequestCard = memo(({ request, handleAccept, handleReject }) => {
   const {
@@ -16,7 +17,7 @@ const RequestCard = memo(({ request, handleAccept, handleReject }) => {
       <td>{userEmail}</td>
       <td>{requestType}</td>
       <td>{requestStatus}</td>
-      <td>{requestTime}</td>
+      <td>{shortTimeAgo(requestTime)}</td>
       <td>
         <div className="flex justify-center items-center gap-5 ">
           <>
