@@ -9,6 +9,7 @@ const Header = () => {
   const navigate = useNavigate();
   const { user, setUser } = useAuth();
   console.log("user", user);
+
   const publicNavItems = [
     { path: "/", name: "Home" },
     { path: "/meals", name: "Meals" },

@@ -24,6 +24,10 @@ import OrderRequests from "../pages/Dashboard/Chef/OrderRequests/OrderRequests";
 import ManageUser from "../pages/Dashboard/Admin/ManageUser/ManageUser";
 import ManageRequests from "../pages/Dashboard/Admin/ManageRequests/ManageRequests";
 import Protected from "../Protected/Protected";
+import Forbidden from "../pages/Forbidden/Forbidden";
+import PlatformStatistics from "../pages/Dashboard/Admin/PlatformStatistics/PlatformStatistics";
+import ChefProtected from "../Protected/ChefProtected";
+import AdminProtected from "../Protected/AdminProtected";
 
 const AppRoute = () => {
   const router = createBrowserRouter([
@@ -37,6 +41,7 @@ const AppRoute = () => {
       children: [
         { index: true, Component: Home },
         { path: "/meals", Component: Meals },
+        { path: "/forbidden", Component: Forbidden },
         {
           path: "/meals/:id",
           element: (
@@ -66,17 +71,64 @@ const AppRoute = () => {
       children: [
         { index: true, Component: Dashboard },
         { path: "/dashboard/profile", Component: MyProfile },
-        { path: "/dashboard/create-meal", Component: CreateMeal },
-        { path: "/dashboard/my-meals", Component: MyMeals },
-        { path: "/dashboard/my-orders", Component: MyOrders },
-        { path: "/dashboard/payment-history", Component: PaymentHistory },
-        { path: "/dashboard/my-reviews", Component: MyReviews },
-        { path: "/dashboard/favorite-meals", Component: FavoriteMeals },
-        { path: "/dashboard/order-requests", Component: OrderRequests },
-        { path: "/dashboard/payments-success", Component: PaymentSuccess },
-        { path: "/dashboard/payments-cancel", Component: PaymentCancel },
-        { path: "/dashboard/manage-users", Component: ManageUser },
-        { path: "/dashboard/manage-requests", Component: ManageRequests },
+        { path: "/dashboard/my-orders", element: <MyOrders /> },
+        { path: "/dashboard/my-reviews", element: <MyReviews /> },
+        { path: "/dashboard/favorite-meals", element: <FavoriteMeals /> },
+        { path: "/dashboard/payment-history", element: <PaymentHistory /> },
+        { path: "/dashboard/payments-success", element: <PaymentSuccess /> },
+        { path: "/dashboard/payments-cancel", element: <PaymentCancel /> },
+
+        //chef route
+        {
+          path: "/dashboard/my-meals",
+          element: (
+            <ChefProtected>
+              <MyMeals />
+            </ChefProtected>
+          ),
+        },
+        {
+          path: "/dashboard/create-meal",
+          element: (
+            <ChefProtected>
+              <CreateMeal />
+            </ChefProtected>
+          ),
+        },
+        {
+          path: "/dashboard/order-requests",
+          element: (
+            <ChefProtected>
+              <OrderRequests />
+            </ChefProtected>
+          ),
+        },
+
+        //admin route
+        {
+          path: "/dashboard/manage-users",
+          element: (
+            <AdminProtected>
+              <ManageUser />
+            </AdminProtected>
+          ),
+        },
+        {
+          path: "/dashboard/manage-requests",
+          element: (
+            <AdminProtected>
+              <ManageRequests />
+            </AdminProtected>
+          ),
+        },
+        {
+          path: "/dashboard/slatform-statistics",
+          element: (
+            <AdminProtected>
+              <PlatformStatistics />
+            </AdminProtected>
+          ),
+        },
       ],
     },
   ]);

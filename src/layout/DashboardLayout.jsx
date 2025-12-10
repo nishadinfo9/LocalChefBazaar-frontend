@@ -17,28 +17,38 @@ import useAuth from "../hooks/useAuth";
 import Loader from "../utils/Loader";
 import { FaTasks } from "react-icons/fa";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
+import useRole from "../hooks/useRole";
 
 const DashboardLayout = () => {
+  const { role } = useRole();
   const { user, loading } = useAuth();
   if (loading) return <Loader />;
 
-  const dashboardItem = [
-    { path: "/", name: "Homepage", icon: <FiHome className="text-lg" /> },
+  const publicItems = [
+    {
+      path: "/",
+      name: "Homepage",
+      icon: <FiHome className="text-lg" />,
+    },
     {
       path: "/dashboard",
       name: "Dashboard",
       icon: <RxDashboard className="text-lg" />,
     },
     {
+      path: "/dashboard/profile",
+      name: "My Profile",
+      icon: <CgProfile className="text-lg" />,
+    },
+  ];
+
+  const userItems = [
+    {
       path: "/dashboard/my-orders",
       name: "My Orders",
       icon: <LuShoppingCart className="text-lg" />,
     },
-    {
-      path: "/dashboard/payment-history",
-      name: "Payment History",
-      icon: <MdOutlinePayment className="text-lg" />,
-    },
+
     {
       path: "/dashboard/my-reviews",
       name: "My review",
@@ -50,10 +60,13 @@ const DashboardLayout = () => {
       icon: <GrFavorite className="text-lg" />,
     },
     {
-      path: "/dashboard/profile",
-      name: "My Profile",
-      icon: <CgProfile className="text-lg" />,
+      path: "/dashboard/payment-history",
+      name: "Payment History",
+      icon: <MdOutlinePayment className="text-lg" />,
     },
+  ];
+
+  const chefItems = [
     {
       path: "/dashboard/create-meal",
       name: "Create Meal",
@@ -69,6 +82,9 @@ const DashboardLayout = () => {
       name: "Order Requests",
       icon: <FaTasks className="text-lg" />,
     },
+  ];
+
+  const adminItems = [
     {
       path: "/dashboard/manage-users",
       name: "Manage Users",
@@ -77,6 +93,11 @@ const DashboardLayout = () => {
     {
       path: "/dashboard/manage-requests",
       name: "Manage Request",
+      icon: <AiOutlineUsergroupAdd className="text-lg" />,
+    },
+    {
+      path: "/dashboard/slatform-statistics",
+      name: "Platform Statistics",
       icon: <AiOutlineUsergroupAdd className="text-lg" />,
     },
   ];
@@ -126,7 +147,7 @@ const DashboardLayout = () => {
         <div className="flex min-h-full flex-col items-start bg-base-100 is-drawer-close:w-14 is-drawer-open:w-64">
           {/* Sidebar content here */}
           <ul className="menu w-full gap-2 grow">
-            {dashboardItem.map((nav, i) => (
+            {publicItems.map((nav, i) => (
               <li key={i}>
                 <NavLink
                   to={nav.path}
@@ -143,6 +164,63 @@ const DashboardLayout = () => {
                 </NavLink>
               </li>
             ))}
+
+            {role === "user" &&
+              userItems.map((nav, i) => (
+                <li key={i}>
+                  <NavLink
+                    to={nav.path}
+                    end={nav.path === "/" || nav.path === "/dashboard"}
+                    className={({ isActive }) =>
+                      `is-drawer-close:tooltip is-drawer-close:tooltip-right ${
+                        isActive ? "bg-primary text-white" : ""
+                      }`
+                    }
+                    data-tip={nav.name}
+                  >
+                    {nav.icon}
+                    <span className="is-drawer-close:hidden">{nav.name}</span>
+                  </NavLink>
+                </li>
+              ))}
+
+            {role === "chef" &&
+              chefItems.map((nav, i) => (
+                <li key={i}>
+                  <NavLink
+                    to={nav.path}
+                    end={nav.path === "/" || nav.path === "/dashboard"}
+                    className={({ isActive }) =>
+                      `is-drawer-close:tooltip is-drawer-close:tooltip-right ${
+                        isActive ? "bg-primary text-white" : ""
+                      }`
+                    }
+                    data-tip={nav.name}
+                  >
+                    {nav.icon}
+                    <span className="is-drawer-close:hidden">{nav.name}</span>
+                  </NavLink>
+                </li>
+              ))}
+
+            {role === "admin" &&
+              adminItems.map((nav, i) => (
+                <li key={i}>
+                  <NavLink
+                    to={nav.path}
+                    end={nav.path === "/" || nav.path === "/dashboard"}
+                    className={({ isActive }) =>
+                      `is-drawer-close:tooltip is-drawer-close:tooltip-right ${
+                        isActive ? "bg-primary text-white" : ""
+                      }`
+                    }
+                    data-tip={nav.name}
+                  >
+                    {nav.icon}
+                    <span className="is-drawer-close:hidden">{nav.name}</span>
+                  </NavLink>
+                </li>
+              ))}
           </ul>
         </div>
       </div>
