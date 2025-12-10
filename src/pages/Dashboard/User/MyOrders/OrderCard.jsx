@@ -7,7 +7,7 @@ const OrderCard = ({ order }) => {
   const {
     foodImage,
     mealName,
-    userEmail,
+    chefId,
     quantity,
     totalPrice,
     orderTime,
@@ -56,7 +56,7 @@ const OrderCard = ({ order }) => {
           <div className="mt-1 text-sm ">
             <h2 className="text-lg font-semibold text-gray-900">{mealName}</h2>
             <p>
-              User: <span className="font-medium">{userEmail}</span>
+              Chef: <span className="font-medium">{chefId}</span>
             </p>
           </div>
 
@@ -66,22 +66,28 @@ const OrderCard = ({ order }) => {
                 Qty: <span className="font-medium">{quantity}</span>
               </p>
               <p>
-                Price: <span className="font-medium">${totalPrice}</span>
+                Price:{" "}
+                <span className="font-medium text-green-500">
+                  ${totalPrice}
+                </span>
               </p>
             </div>
             <div className="flex gap-4">
               <p>
                 <span className="">{shortTimeAgo(orderTime)}</span>
               </p>
-              <span
-                className={`${
-                  paymentStatus === "pending"
-                    ? "text-yellow-500"
-                    : "text-green-500"
-                } font-semibold`}
-              >
-                {paymentStatus}
-              </span>
+              <p>
+                payment:{" "}
+                <span
+                  className={`${
+                    paymentStatus === "pending"
+                      ? "text-yellow-500"
+                      : "text-green-500"
+                  } font-semibold`}
+                >
+                  {paymentStatus}
+                </span>
+              </p>
             </div>
           </div>
         </div>

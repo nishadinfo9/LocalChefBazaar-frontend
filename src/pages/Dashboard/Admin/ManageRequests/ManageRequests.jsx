@@ -52,7 +52,7 @@ const ManageRequests = () => {
 
   return (
     <div>
-      <h2>Manage Request</h2>
+      <h1 className="text-3xl font-bold mb-6">Manage Request</h1>
       <div className="overflow-x-auto">
         <table className="table table-zebra">
           <thead>
