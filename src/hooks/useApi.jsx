@@ -3,7 +3,7 @@ import axios from "axios";
 
 const useApi = () => {
   const api = axios.create({
-    baseURL: "https://localchefbazaar-backend-production.up.railway.app/api/v1",
+    baseURL: "http://localhost:3000/api/v1",
     withCredentials: true,
   });
 
