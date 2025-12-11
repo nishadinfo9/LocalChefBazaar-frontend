@@ -55,8 +55,8 @@ const PlatformStatistics = () => {
   ];
 
   const chartData = [
-    { name: "Pending Orders", value: stats.pendingOrder },
-    { name: "Delivered Orders", value: stats.deliveredOrders },
+    { name: "Pending Orders", value: stats.pendingOrder || 0 },
+    { name: "Delivered Orders", value: stats.deliveredOrders || 0 },
   ];
 
   const COLORS = ["#ff5722", "#4caf50"];
@@ -85,7 +85,7 @@ const PlatformStatistics = () => {
       <div className="bg-white p-4  rounded-lg shadow-md">
         <h3 className="text-xl font-bold mb-4">Orders Status</h3>
         <div className="md:w-full h-60">
-          <ResponsiveContainer width="100%" height="100%">
+          <ResponsiveContainer width="100%" height={240}>
             <PieChart>
               <Pie
                 data={chartData}

@@ -8,7 +8,6 @@ const RequestCard = memo(({ request, handleAccept, handleReject }) => {
     requestType = "",
     requestStatus = "",
     requestTime = "",
-    _id,
   } = request;
 
   return (

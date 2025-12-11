@@ -9,8 +9,6 @@ const Protected = ({ children }) => {
   const { user, loading } = useAuth();
   if (loading) return <Loader />;
 
-  console.log("user", user);
-
   if (!user) {
     return <Navigate state={location.pathname} to={"/login"} />;
   }
