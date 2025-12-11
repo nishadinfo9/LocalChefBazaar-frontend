@@ -9,7 +9,6 @@ import Meals from "../pages/Meals/Meals";
 import ViewDetails from "../pages/ViewDetails/ViewDetails";
 import Loader from "../utils/Loader";
 import DashboardLayout from "../layout/DashboardLayout";
-import Dashboard from "../pages/Dashboard/Dashboard/Dashboard";
 import MyProfile from "../pages/Dashboard/MyProfile/MyProfile";
 import CreateMeal from "../pages/Dashboard/Chef/CreateMeal/CreateMeal";
 import MyMeals from "../pages/Dashboard/Chef/MyMeals/MyMeals";
@@ -71,7 +70,6 @@ const AppRoute = () => {
       ),
       HydrateFallback: <Loader />,
       children: [
-        { index: true, element: <Dashboard /> },
         { path: "/dashboard/profile", element: <MyProfile /> },
         { path: "/dashboard/my-orders", element: <MyOrders /> },
         { path: "/dashboard/my-reviews", element: <MyReviews /> },

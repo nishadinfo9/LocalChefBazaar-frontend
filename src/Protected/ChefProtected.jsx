@@ -14,7 +14,7 @@ const ChefProtected = ({ children }) => {
     toast.error("⚠️ Forbidden Access");
     return <Forbidden />;
   }
-  if (status !== "active") {
+  if (status === "fraud") {
     return <Navigate to={"/banned"} />;
   }
   return children;

@@ -7,7 +7,7 @@ const Pagination = ({ currentPage, totalPage, setCurrentPage }) => {
       {[...Array(totalPage).keys()].map((page) => (
         <button
           key={page}
-          className={`btn rounded-lg ${currentPage === page && "bg-blue-500"}`}
+          className={`btn rounded-lg ${currentPage === page && "bg-secondary"}`}
           onClick={() => setCurrentPage(page)}
         >
           {page + 1}

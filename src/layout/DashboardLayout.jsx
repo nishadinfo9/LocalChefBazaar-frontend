@@ -10,7 +10,6 @@ import {
   MdOutlineReviews,
 } from "react-icons/md";
 import { PiListFill } from "react-icons/pi";
-import { RxDashboard } from "react-icons/rx";
 import { NavLink, Outlet } from "react-router-dom";
 import Profile from "../components/Home/Header/Profile";
 import useAuth from "../hooks/useAuth";
@@ -30,11 +29,6 @@ const DashboardLayout = () => {
       path: "/",
       name: "Homepage",
       icon: <FiHome className="text-lg" />,
-    },
-    {
-      path: "/dashboard",
-      name: "Dashboard",
-      icon: <RxDashboard className="text-lg" />,
     },
     {
       path: "/dashboard/profile",

@@ -9,7 +9,7 @@ const Protected = ({ children }) => {
   const { user, loading } = useAuth();
   if (loading) return <Loader />;
 
-  if (user?.status !== "active") {
+  if (user?.status === "fraud") {
     toast.error("⚠️ Your account is banned or inactive.");
     return <Navigate to={"/banned"} />;
   }
