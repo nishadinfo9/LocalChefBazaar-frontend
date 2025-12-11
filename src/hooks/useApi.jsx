@@ -1,35 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
-import toast from "react-hot-toast";
 
 const useApi = () => {
   const api = axios.create({
-    baseURL:
-      process.env.NODE_ENV === "production"
-        ? "https://localchefbazaar-backend-production.up.railway.app/api/v1"
-        : "http://localhost:3000/api/v1",
+    baseURL: "https://localchefbazaar-backend-production.up.railway.app/api/v1",
     withCredentials: true,
   });
 
-  api.interceptors.response.use(
-    (response) => response,
-    async (err) => {
-      const originalRequest = err.config;
-      const status = err.response?.status;
+  useEffect(() => {
+    const requestIntercept = api.interceptors.request.use((config) => {
+      return config;
+    });
 
-      if (status === 401 && !originalRequest._retry) {
-        originalRequest._retry = true;
+    const responseIntercept = api.interceptors.response.use(
+      (response) => response,
+      async (err) => {
+        const originalRequest = err.config;
 
-        try {
-          await api.post("/user/refresh-token");
-          return api(originalRequest);
-        } catch (refreshError) {
-          return Promise.reject(refreshError);
+        if (err.response?.status === 401 && !originalRequest._retry) {
+          originalRequest._retry = true;
+
+          try {
+            await api.post("/user/refresh-token");
+            return api(originalRequest);
+          } catch (refreshError) {
+            window.location.href = "/login";
+            return Promise.reject(refreshError);
+          }
         }
+
+        return Promise.reject(err);
       }
-      return Promise.reject(err);
-    }
-  );
+    );
+
+    return () => {
+      api.interceptors.request.eject(requestIntercept);
+      api.interceptors.response.eject(responseIntercept);
+    };
+  }, []);
 
   return api;
 };
