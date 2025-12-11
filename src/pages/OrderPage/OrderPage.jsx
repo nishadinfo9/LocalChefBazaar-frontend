@@ -21,8 +21,6 @@ const OrderPage = () => {
     queryKey: ["meal", mealId],
   });
 
-  console.log(data);
-
   const meals = data?.meal || {};
   const { foodName = "", chefId = "", price, userEmail = "" } = meals;
 

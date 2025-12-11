@@ -28,6 +28,7 @@ import Forbidden from "../pages/Forbidden/Forbidden";
 import PlatformStatistics from "../pages/Dashboard/Admin/PlatformStatistics/PlatformStatistics";
 import ChefProtected from "../Protected/ChefProtected";
 import AdminProtected from "../Protected/AdminProtected";
+import Banned from "../pages/Banned/Banned";
 
 const AppRoute = () => {
   const router = createBrowserRouter([
@@ -42,6 +43,7 @@ const AppRoute = () => {
         { index: true, Component: Home },
         { path: "/meals", Component: Meals },
         { path: "/forbidden", Component: Forbidden },
+        { path: "/banned", Component: Banned },
         {
           path: "/meals/:id",
           element: (
@@ -69,8 +71,8 @@ const AppRoute = () => {
       ),
       HydrateFallback: <Loader />,
       children: [
-        { index: true, Component: Dashboard },
-        { path: "/dashboard/profile", Component: MyProfile },
+        { index: true, element: <Dashboard /> },
+        { path: "/dashboard/profile", element: <MyProfile /> },
         { path: "/dashboard/my-orders", element: <MyOrders /> },
         { path: "/dashboard/my-reviews", element: <MyReviews /> },
         { path: "/dashboard/favorite-meals", element: <FavoriteMeals /> },

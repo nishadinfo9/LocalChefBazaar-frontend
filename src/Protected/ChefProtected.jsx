@@ -2,14 +2,22 @@ import React from "react";
 import useRole from "../hooks/useRole";
 import Loader from "../utils/Loader";
 import { Navigate } from "react-router-dom";
+import Forbidden from "../pages/Forbidden/Forbidden";
+import toast from "react-hot-toast";
 
 const ChefProtected = ({ children }) => {
-  const { role, loading } = useRole();
+  const { role, status, loading } = useRole();
 
   if (loading) return <Loader />;
-  if (role === "chef") return children;
 
-  return <Navigate to={"/forbidden"} />;
+  if (role !== "chef") {
+    toast.error("⚠️ Forbidden Access");
+    return <Forbidden />;
+  }
+  if (status !== "active") {
+    return <Navigate to={"/banned"} />;
+  }
+  return children;
 };
 
 export default ChefProtected;

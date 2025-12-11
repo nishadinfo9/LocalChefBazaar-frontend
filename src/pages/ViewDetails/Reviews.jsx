@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import useFetch from "../../hooks/useFetch";
 import Loader from "../../utils/Loader";
 import usePost from "../../hooks/usePost";
+import { shortTimeAgo } from "../../utils/shortTimeAgo";
 
 const Reviews = memo(({ foodId }) => {
   const { user } = useAuth();
@@ -85,7 +86,9 @@ const Reviews = memo(({ foodId }) => {
 
             <p className="text-gray-600">{review.comment}</p>
 
-            <p className="text-secondary text-sm mt-7">2 days ago</p>
+            <p className="text-secondary text-sm mt-7">
+              {shortTimeAgo(review.reviewDate)}
+            </p>
           </div>
         ))}
       </div>

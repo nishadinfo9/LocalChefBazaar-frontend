@@ -19,7 +19,7 @@ const OrderCard = ({ order }) => {
   const createPayment = usePost({
     url: `/payment/create-session/${foodId}`,
     invalidateQueries: [["payments"]],
-    message: 'payment successfully'
+    message: "payment successfully",
   });
 
   const paymentHandler = () => {

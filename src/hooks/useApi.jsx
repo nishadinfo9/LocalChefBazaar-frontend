@@ -17,15 +17,15 @@ const useApi = () => {
       const message = err.response?.data?.message;
 
       //handle fraud
-      if (status === 403 && message?.includes("banned")) {
-        toast.error("⚠️ You account has banned.");
-        return Promise.reject(err);
-      }
+      // if (status === 403 && message?.includes("banned")) {
+      //   toast.error("⚠️ You account has banned.");
+      //   return Promise.reject(err);
+      // }
 
-      if (status === 403 && message?.includes("Access denied")) {
-        toast.error("⛔ You do not have permission to access this page.");
-        return Promise.reject(err);
-      }
+      // if (status === 403 && message?.includes("Access denied")) {
+      //   toast.error("⛔ You do not have permission to access this page.");
+      //   return Promise.reject(err);
+      // }
 
       if (status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;

@@ -1,14 +1,19 @@
 import React from "react";
 import useRole from "../hooks/useRole";
 import Loader from "../utils/Loader";
-import { Navigate } from "react-router-dom";
+import Forbidden from "../pages/Forbidden/Forbidden";
+import toast from "react-hot-toast";
 
 const AdminProtected = ({ children }) => {
   const { role, loading } = useRole();
+  if (loading) return <Loader />;
 
-  if (loading) <Loader />;
-  if (role === "admin") return children;
-  return <Navigate to={"forbidden"} />;
+  if (role !== "admin") {
+    toast.error("⚠️ Forbidden Access");
+    return <Forbidden />;
+  }
+
+  return children;
 };
 
 export default AdminProtected;
