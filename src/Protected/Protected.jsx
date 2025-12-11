@@ -9,14 +9,18 @@ const Protected = ({ children }) => {
   const { user, loading } = useAuth();
   if (loading) return <Loader />;
 
+  console.log("user", user);
+
+  if (!user) {
+    return <Navigate state={location.pathname} to={"/login"} />;
+  }
+
   if (user?.status === "fraud") {
     toast.error("⚠️ Your account is banned or inactive.");
     return <Navigate to={"/banned"} />;
   }
 
-  if (user) return children;
-
-  return <Navigate state={location.pathname} to={"/login"} />;
+  return children;
 };
 
 export default Protected;
