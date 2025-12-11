@@ -3,17 +3,21 @@ import React from "react";
 import useApi from "./useApi";
 import toast from "react-hot-toast";
 
-const usePost = ({ url, invalidateQueries = [] }) => {
+const usePost = ({
+  url,
+  invalidateQueries = [],
+  message = "Created successfully!",
+}) => {
   const queryClient = useQueryClient();
   const api = useApi();
-  
+
   return useMutation({
     mutationFn: async (payload) => {
       const { data } = await api.post(url, payload);
       return data;
     },
     onSuccess: () => {
-      toast.success("Created successfully!");
+      toast.success(message);
       invalidateQueries.forEach((q) => queryClient.invalidateQueries(q));
     },
     onError: (error) => {

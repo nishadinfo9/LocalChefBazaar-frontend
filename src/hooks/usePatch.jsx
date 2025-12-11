@@ -3,7 +3,10 @@ import React from "react";
 import useApi from "./useApi";
 import toast from "react-hot-toast";
 
-const usePatch = ({ invalidateQueries = [] }) => {
+const usePatch = ({
+  invalidateQueries = [],
+  message = "Updated successfully!",
+}) => {
   const queryClient = useQueryClient();
   const api = useApi();
 
@@ -18,7 +21,7 @@ const usePatch = ({ invalidateQueries = [] }) => {
 
     onSuccess: (_, __, context) => {
       if (context?.toastId) toast.dismiss(context.toastId);
-      toast.success("Updated successfully!");
+      toast.success(message);
       invalidateQueries.forEach((q) => queryClient.invalidateQueries(q));
     },
     onError: (error) => {

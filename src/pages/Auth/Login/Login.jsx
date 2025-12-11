@@ -19,6 +19,7 @@ const Login = () => {
   const loginUser = usePost({
     url: "/user/login",
     invalidateQueries: [["user"]],
+    message: 'Login successfully'
   });
 
   const loginHandler = (data) => {

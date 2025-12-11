@@ -2,7 +2,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useApi from "./useApi";
 import toast from "react-hot-toast";
 
-const useDelete = ({ invalidateQueries = [] }) => {
+const useDelete = ({
+  invalidateQueries = [],
+  message = "Deleted successfully!",
+}) => {
   const queryClient = useQueryClient();
   const api = useApi();
 
@@ -17,11 +20,12 @@ const useDelete = ({ invalidateQueries = [] }) => {
 
     onSuccess: (_, __, context) => {
       toast.dismiss(context.toastId);
-      toast.success("Deleted successfully!");
+      toast.success(message);
       invalidateQueries.forEach((q) => queryClient.invalidateQueries(q));
     },
     onError: (error) => {
-      const msg = error?.response?.data?.message || "Something went wrong!";
+      const msg =
+        error?.response?.data?.message || "Failed to delete. Please try again.";
       toast.error(msg);
     },
   });

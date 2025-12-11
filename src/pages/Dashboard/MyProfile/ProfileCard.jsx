@@ -5,6 +5,7 @@ const ProfileCard = ({ user }) => {
   const createRequest = usePost({
     url: "/user/create-request",
     invalidateQueries: [["profiles"]],
+    message: "sent request successfully",
   });
 
   const handleChefRequest = async () => {

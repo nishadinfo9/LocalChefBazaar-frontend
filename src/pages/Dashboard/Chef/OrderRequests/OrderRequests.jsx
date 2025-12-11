@@ -12,7 +12,10 @@ const OrderRequests = () => {
     queryKey: ["orders", user?.email],
   });
 
-  const orderRequestStatus = usePatch({ invalidateQueries: [["orders"]] });
+  const orderRequestStatus = usePatch({
+    invalidateQueries: [["orders"]],
+    message: "order status updated successfully",
+  });
 
   const updateOrderStatus = async (orderId, orderStatus) => {
     orderRequestStatus.mutate(

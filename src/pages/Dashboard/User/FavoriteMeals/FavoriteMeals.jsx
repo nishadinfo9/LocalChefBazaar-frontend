@@ -13,7 +13,10 @@ const FavoriteMeals = () => {
     queryKey: ["favorites", user?.email],
   });
 
-  const deleteFavorite = useDelete({ invalidateQueries: [["favorites"]] });
+  const deleteFavorite = useDelete({
+    invalidateQueries: [["favorites"]],
+    message: "Deleted Favorite Food",
+  });
 
   const deleteFavoriteFood = (favoriteId) => {
     deleteFavorite.mutate(

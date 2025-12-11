@@ -10,7 +10,10 @@ const ManageUser = () => {
     queryKey: ["users-admin"],
   });
 
-  const addFraud = usePatch({ invalidateQueries: [["frauds"]] });
+  const addFraud = usePatch({
+    invalidateQueries: [["frauds"]],
+    message: "fraud added successfully",
+  });
 
   const fraudHandler = (userId) => {
     addFraud.mutate(

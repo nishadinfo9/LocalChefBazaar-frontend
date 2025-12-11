@@ -15,7 +15,10 @@ const MyReviews = () => {
     queryKey: ["reviews", user?.email],
   });
 
-  const deleteReview = useDelete({ invalidateQueries: [["reviews"]] });
+  const deleteReview = useDelete({
+    invalidateQueries: [["reviews"]],
+    message: "Review Deleted Successfully",
+  });
 
   const handleReviewEdit = (review) => {
     setReview(review);
@@ -36,7 +39,6 @@ const MyReviews = () => {
   if (isLoading) return <Loader />;
   if (isError) return <p>{error.message}</p>;
   if (!data?.reviews?.length) return <p>No reviews Found</p>;
-
 
   return (
     <div className="min-h-screen bg-base-100 p-6">

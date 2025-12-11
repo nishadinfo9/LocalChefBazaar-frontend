@@ -23,9 +23,13 @@ const CreateMeal = () => {
   const addMeals = usePost({
     url: "/meals/create",
     invalidateQueries: [["meals"]],
+    message: "Meal Added successfully",
   });
 
-  const updateMeal = usePatch({ invalidateQueries: [["meals", mealId]] });
+  const updateMeal = usePatch({
+    invalidateQueries: [["meals", mealId]],
+    message: "meal updated successfully",
+  });
 
   const { data, isLoading, isError, error } = useFetch({
     url: `/meals/single-meal/${mealId}`,

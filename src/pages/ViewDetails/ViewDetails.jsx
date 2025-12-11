@@ -44,7 +44,8 @@ const ViewDetails = () => {
 
   const addFavorite = usePost({
     url: `/meal/add-favorite-meal/${id}`,
-    // invalidateQueries: [["favorites", id]],
+    invalidateQueries: [["favorites", id]],
+    message: "Added Favorite successfully",
   });
 
   const addFavoriteMealHandler = useCallback(() => {

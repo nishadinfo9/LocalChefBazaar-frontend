@@ -11,13 +11,14 @@ import {
 } from "react-icons/md";
 import { PiListFill } from "react-icons/pi";
 import { RxDashboard } from "react-icons/rx";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import Profile from "../components/Home/Header/Profile";
 import useAuth from "../hooks/useAuth";
 import Loader from "../utils/Loader";
 import { FaTasks } from "react-icons/fa";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import useRole from "../hooks/useRole";
+import { GoGraph } from "react-icons/go";
 
 const DashboardLayout = () => {
   const { role } = useRole();
@@ -98,7 +99,7 @@ const DashboardLayout = () => {
     {
       path: "/dashboard/slatform-statistics",
       name: "Platform Statistics",
-      icon: <AiOutlineUsergroupAdd className="text-lg" />,
+      icon: <GoGraph className="text-lg" />,
     },
   ];
 

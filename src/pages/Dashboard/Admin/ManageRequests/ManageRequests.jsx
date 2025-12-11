@@ -10,7 +10,7 @@ const ManageRequests = () => {
     queryKey: ["requests"],
   });
 
-  const updateRequest = usePatch({ invalidateQueries: [["requests"]] });
+  const updateRequest = usePatch({ invalidateQueries: [["requests"]], message: 'request updated successfully' });
 
   const handleAccept = (request) => {
     updateRequest.mutate(

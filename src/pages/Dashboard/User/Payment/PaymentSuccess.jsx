@@ -6,7 +6,10 @@ import Loader from "../../../../utils/Loader";
 const PaymentSuccess = () => {
   const [paymentParams] = useSearchParams();
   const sessionId = paymentParams.get("session_id");
-  const createPayment = usePatch({ invalidateQueries: [["payments"]] });
+  const createPayment = usePatch({
+    invalidateQueries: [["payments"]],
+    message: "payment updated successfully",
+  });
 
   useEffect(() => {
     if (!sessionId) return;

@@ -16,6 +16,7 @@ const EditModal = ({ modalRef, review, refetch }) => {
 
   const updateReview = usePatch({
     invalidateQueries: [["reviews"]],
+    message: "review updated successfully",
   });
 
   const reviewHandler = (data) => {

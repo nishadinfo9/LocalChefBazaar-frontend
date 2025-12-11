@@ -18,6 +18,7 @@ const Header = () => {
   const logoutUser = usePost({
     url: "/user/logout",
     invalidateQueries: [["user"]],
+    message: 'Logout successfully'
   });
 
   const privateNavItems = [{ path: "/dashboard", name: "Dashboard" }];

@@ -14,9 +14,10 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const createPost = usePost({
+  const createAccount = usePost({
     url: "/user/register",
     invalidateQueries: [["user"]],
+    message: "Register successfully",
   });
 
   const registerHandler = async (data) => {
@@ -35,7 +36,7 @@ const Register = () => {
     }
 
     try {
-      createPost.mutate(formData, {
+      createAccount.mutate(formData, {
         onSuccess: (data) => {
           console.log(data);
           reset();

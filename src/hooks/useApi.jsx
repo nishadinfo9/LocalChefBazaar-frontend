@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const useApi = () => {
   const api = axios.create({
@@ -12,24 +13,30 @@ const useApi = () => {
     (response) => response,
     async (err) => {
       const originalRequest = err.config;
+      const status = err.response?.status;
+      const message = err.response?.data?.message;
 
-      if (err.response?.status === 401 && !originalRequest._retry) {
+      //handle fraud
+      if (status === 403 && message?.includes("banned")) {
+        toast.error("⚠️ You account has banned.");
+        return Promise.reject(err);
+      }
+
+      if (status === 403 && message?.includes("Access denied")) {
+        toast.error("⛔ You do not have permission to access this page.");
+        return Promise.reject(err);
+      }
+
+      if (status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
-
-        // Prevent infinite loop on refresh-token itself
-        if (originalRequest.url === "/user/refresh-token") {
-          return Promise.reject(err);
-        }
 
         try {
           await api.post("/user/refresh-token");
           return api(originalRequest);
         } catch (refreshError) {
-          console.log(refreshError);
           return Promise.reject(refreshError);
         }
       }
-
       return Promise.reject(err);
     }
   );

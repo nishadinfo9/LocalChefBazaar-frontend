@@ -12,7 +12,10 @@ const MyMeals = () => {
     queryKey: ["my-meals"],
   });
 
-  const deleteMeal = useDelete({ invalidateQueries: [["my-meals"]] });
+  const deleteMeal = useDelete({
+    invalidateQueries: [["my-meals"]],
+    message: "Meal Deleted Successfully",
+  });
 
   const handleDeleteMeal = (mealId) => {
     deleteMeal.mutate(

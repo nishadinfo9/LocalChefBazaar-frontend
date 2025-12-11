@@ -21,6 +21,7 @@ const Reviews = memo(({ foodId }) => {
   const createReview = usePost({
     url: "/meals/review-create",
     invalidateQueries: [["reviews", foodId]],
+    message: "review successfully",
   });
 
   const reviewHandler = (data) => {

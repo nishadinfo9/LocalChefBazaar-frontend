@@ -41,6 +41,7 @@ const OrderPage = () => {
   const createOrder = usePost({
     url: `/order/create/${mealId}`,
     invalidateQueries: [["orders"]],
+    message: "Order created successfully",
   });
 
   //place order
