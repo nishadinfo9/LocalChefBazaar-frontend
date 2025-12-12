@@ -1,34 +1,30 @@
 import React, { useEffect, useState } from "react";
 import AuthContext from "./AuthContext";
-import useApi from "../hooks/useApi";
+import useFetch from "../hooks/useFetch";
+import Loader from "../utils/Loader";
 
 const AuthProvider = ({ children }) => {
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
-  const api = useApi();
+
+  const { data, isLoading, isError, error } = useFetch({
+    url: "/user/current-user",
+    queryKey: ["current-user"],
+  });
 
   useEffect(() => {
-    const subscribe = async () => {
-      try {
-        setLoading(true);
-        const response = await api.get("/user/current-user");
-        setUser(response.data?.user);
-      } catch (error) {
-        setError(error?.message);
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-    return () => {
-      subscribe();
-    };
-  }, []);
+    if (data?.user) {
+      setUser(data?.user);
+    }
+  }, [data?.user]);
 
-  const authInfo = { error, loading, user, setUser };
+  if (isLoading) return <Loader />;
+  if (isError) return <p>{error.message}</p>;
 
-  return <AuthContext value={authInfo}>{children}</AuthContext>;
+  const authInfo = { error, isError, isLoading, user, setUser };
+
+  return (
+    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;

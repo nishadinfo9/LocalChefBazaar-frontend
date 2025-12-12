@@ -9,26 +9,25 @@ const useApi = () => {
 
   useEffect(() => {
     const requestIntercept = api.interceptors.request.use((config) => {
+      const token = localStorage.getItem("accessToken");
+      if (token) config.headers.Authorization = `Bearer ${token}`;
       return config;
     });
 
     const responseIntercept = api.interceptors.response.use(
-      (response) => response,
+      (res) => res,
       async (err) => {
         const originalRequest = err.config;
 
         if (err.response?.status === 401 && !originalRequest._retry) {
           originalRequest._retry = true;
 
-          try {
-            await api.post("/user/refresh-token");
-            return api(originalRequest);
-          } catch (refreshError) {
-            window.location.href = "/login";
-            return Promise.reject(refreshError);
-          }
-        }
+          const res = await api.post("/user/refresh-token");
+          const newToken = res.data.accessToken;
 
+          localStorage.setItem("accessToken", newToken);
+          return api(originalRequest);
+        }
         return Promise.reject(err);
       }
     );
@@ -37,7 +36,7 @@ const useApi = () => {
       api.interceptors.request.eject(requestIntercept);
       api.interceptors.response.eject(responseIntercept);
     };
-  }, []);
+  }, [api]);
 
   return api;
 };

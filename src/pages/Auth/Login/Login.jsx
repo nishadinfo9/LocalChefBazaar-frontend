@@ -19,15 +19,15 @@ const Login = () => {
   const loginUser = usePost({
     url: "/user/login",
     invalidateQueries: [["user"]],
-    message: 'Login successfully'
+    message: "Login successfully",
   });
 
   const loginHandler = (data) => {
     if (!data) return;
-    console.log(data);
     loginUser.mutate(data, {
       onSuccess: (data) => {
-        setUser(data?.user?.loginUser);
+        localStorage.setItem("accessToken", data.accessToken);
+        setUser(data?.user);
         reset();
         navigate("/");
       },
