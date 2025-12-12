@@ -12,7 +12,10 @@ const usePatch = ({
 
   return useMutation({
     mutationFn: async ({ url, payload }) => {
-      return api.patch(url, payload);
+      const token = localStorage.getItem("accessToken");
+      return api.patch(url, payload, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
     },
     onMutate: () => {
       const toastId = toast.loading("Updating...");

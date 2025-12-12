@@ -14,7 +14,10 @@ const useFetch = ({
   return useQuery({
     queryKey,
     queryFn: async () => {
-      const response = await api.get(url);
+      const token = localStorage.getItem("accessToken");
+      const response = await api.get(url, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       return response.data;
     },
     enabled,

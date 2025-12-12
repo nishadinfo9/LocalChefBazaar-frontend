@@ -11,7 +11,10 @@ const useDelete = ({
 
   return useMutation({
     mutationFn: async ({ url }) => {
-      return api.delete(url);
+      const token = localStorage.getItem("accessToken");
+      return api.delete(url, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
     },
     onMutate: () => {
       const toastId = toast.loading("Deleting...");

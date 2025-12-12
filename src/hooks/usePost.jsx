@@ -13,7 +13,12 @@ const usePost = ({
 
   return useMutation({
     mutationFn: async (payload) => {
-      const { data } = await api.post(url, payload);
+      const token = localStorage.getItem("accessToken");
+      const { data } = await api.post(url, payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return data;
     },
     onSuccess: () => {
