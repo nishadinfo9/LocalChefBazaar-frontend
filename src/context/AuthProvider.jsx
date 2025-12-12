@@ -24,9 +24,8 @@ const AuthProvider = ({ children }) => {
         setLoading(false);
       }
     };
-    return () => {
-      subscribe();
-    };
+
+    subscribe();
   }, []);
 
   const authInfo = { error, loading, user, setUser };
