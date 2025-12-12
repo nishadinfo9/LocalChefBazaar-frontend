@@ -22,7 +22,11 @@ const useApi = () => {
         if (err.response?.status === 401 && !originalRequest._retry) {
           originalRequest._retry = true;
 
-          const res = await api.post("/user/refresh-token");
+          const res = await api.post(
+            "/user/refresh-token",
+            {},
+            { withCredentials: true }
+          );
           const newToken = res.data.accessToken;
 
           localStorage.setItem("accessToken", newToken);
