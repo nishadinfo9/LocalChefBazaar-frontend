@@ -5,6 +5,7 @@ import Loader from "../../../../utils/Loader";
 import ReviewCard from "./ReviewCard";
 import useDelete from "../../../../hooks/useDelete";
 import EditModal from "./EditModal";
+import Swal from "sweetalert2";
 
 const MyReviews = () => {
   const [review, setReview] = useState(null);
@@ -26,14 +27,26 @@ const MyReviews = () => {
   };
 
   const handleReviewDelete = (reviewId) => {
-    deleteReview.mutate(
-      { url: `meals/review-delete/${reviewId}` },
-      {
-        onSuccess: () => {
-          refetch();
-        },
+    Swal.fire({
+      title: `Are You Sure`,
+      text: "You are deleted the review",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Delete",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteReview.mutate(
+          { url: `meals/review-delete/${reviewId}` },
+          {
+            onSuccess: () => {
+              refetch();
+            },
+          }
+        );
       }
-    );
+    });
   };
 
   if (isLoading) return <Loader />;

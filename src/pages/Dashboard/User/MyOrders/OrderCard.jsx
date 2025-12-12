@@ -27,7 +27,6 @@ const OrderCard = ({ order }) => {
       {},
       {
         onSuccess: (data) => {
-          console.log("data", data?.url);
           window.location.assign(data?.url);
         },
       }

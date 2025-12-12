@@ -58,7 +58,6 @@ const OrderPage = () => {
       confirmButtonText: "Place Order",
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log(data);
         createOrder.mutate(data, {
           onSuccess: () => {
             navigate("/dashboard/my-orders");

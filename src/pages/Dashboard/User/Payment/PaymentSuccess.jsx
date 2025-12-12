@@ -17,9 +17,6 @@ const PaymentSuccess = () => {
     createPayment.mutate(
       { url: `/payment/verify-session/${sessionId}` },
       {
-        onSuccess: () => {
-          console.log(" Payment Verified ✔");
-        },
         onError: (error) => {
           console.log(error);
         },

@@ -4,6 +4,7 @@ import MelesCard from "./MelesCard";
 import Loader from "../../../../utils/Loader";
 import useDelete from "../../../../hooks/useDelete";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const MyMeals = () => {
   const navigate = useNavigate();
@@ -18,14 +19,26 @@ const MyMeals = () => {
   });
 
   const handleDeleteMeal = (mealId) => {
-    deleteMeal.mutate(
-      { url: `/meals/delete-meals/${mealId}` },
-      {
-        onSuccess: () => {
-          refetch();
-        },
+    Swal.fire({
+      title: `Are You Sure`,
+      text: "You are deleted the Meal",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Delete",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteMeal.mutate(
+          { url: `/meals/delete-meals/${mealId}` },
+          {
+            onSuccess: () => {
+              refetch();
+            },
+          }
+        );
       }
-    );
+    });
   };
   const handleEditMeal = (mealId) => {
     navigate(`/dashboard/create-meal?mealId=${mealId}`);

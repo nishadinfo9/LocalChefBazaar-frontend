@@ -3,6 +3,7 @@ import useFetch from "../../../../hooks/useFetch";
 import Loader from "../../../../utils/Loader";
 import UserCard from "./UserCard";
 import usePatch from "../../../../hooks/usePatch";
+import Swal from "sweetalert2";
 
 const ManageUser = () => {
   const { data, isLoading, isError, error, refetch } = useFetch({
@@ -16,14 +17,26 @@ const ManageUser = () => {
   });
 
   const fraudHandler = (userId) => {
-    addFraud.mutate(
-      { url: `/user/fraud-user/${userId}` },
-      {
-        onSuccess: () => {
-          refetch();
-        },
+    Swal.fire({
+      title: `Are You Sure`,
+      text: "Confirm he is Fraud",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Fraud",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        addFraud.mutate(
+          { url: `/user/fraud-user/${userId}` },
+          {
+            onSuccess: () => {
+              refetch();
+            },
+          }
+        );
       }
-    );
+    });
   };
 
   if (isLoading) return <Loader />;

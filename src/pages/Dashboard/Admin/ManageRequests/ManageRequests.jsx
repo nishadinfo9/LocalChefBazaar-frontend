@@ -3,6 +3,7 @@ import useFetch from "../../../../hooks/useFetch";
 import Loader from "../../../../utils/Loader";
 import RequestCard from "./RequestCard";
 import usePatch from "../../../../hooks/usePatch";
+import Swal from "sweetalert2";
 
 const ManageRequests = () => {
   const { data, isLoading, isError, error, refetch } = useFetch({
@@ -33,20 +34,32 @@ const ManageRequests = () => {
   };
 
   const handleReject = (request) => {
-    updateRequest.mutate(
-      {
-        url: `/user/update-request/${request.userId}`,
-        payload: {
-          requestType: request.requestType,
-          requestStatus: "reject",
-        },
-      },
-      {
-        onSuccess: () => {
-          refetch();
-        },
+    Swal.fire({
+      title: `Are You Sure`,
+      text: "You are Reject The Request",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Reject",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        updateRequest.mutate(
+          {
+            url: `/user/update-request/${request.userId}`,
+            payload: {
+              requestType: request.requestType,
+              requestStatus: "reject",
+            },
+          },
+          {
+            onSuccess: () => {
+              refetch();
+            },
+          }
+        );
       }
-    );
+    });
   };
 
   if (isLoading) return <Loader />;

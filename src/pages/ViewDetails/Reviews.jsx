@@ -27,12 +27,10 @@ const Reviews = memo(({ foodId }) => {
 
   const reviewHandler = (data) => {
     const { comment, rating } = data;
-    console.log(foodId, comment, rating);
     createReview.mutate(
       { foodId, comment, rating },
       {
         onSuccess: (data) => {
-          console.log(data);
           reset();
         },
       }

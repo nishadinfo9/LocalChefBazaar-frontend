@@ -4,6 +4,7 @@ import useFetch from "../../../../hooks/useFetch";
 import useAuth from "../../../../hooks/useAuth";
 import Loader from "../../../../utils/Loader";
 import useDelete from "../../../../hooks/useDelete";
+import Swal from "sweetalert2";
 
 const FavoriteMeals = () => {
   const { user } = useAuth();
@@ -19,14 +20,26 @@ const FavoriteMeals = () => {
   });
 
   const deleteFavoriteFood = (favoriteId) => {
-    deleteFavorite.mutate(
-      { url: `/meal/delete-favorite-meals/${favoriteId}` },
-      {
-        onSuccess: () => {
-          refetch();
-        },
+    Swal.fire({
+      title: `Are You Sure`,
+      text: "You are deleted?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Delete",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteFavorite.mutate(
+          { url: `/meal/delete-favorite-meals/${favoriteId}` },
+          {
+            onSuccess: () => {
+              refetch();
+            },
+          }
+        );
       }
-    );
+    });
   };
 
   if (isLoading) return <Loader />;
@@ -64,3 +77,5 @@ const FavoriteMeals = () => {
 };
 
 export default FavoriteMeals;
+
+

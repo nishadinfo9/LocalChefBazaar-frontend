@@ -20,7 +20,6 @@ const EditModal = ({ modalRef, review, refetch }) => {
   });
 
   const reviewHandler = (data) => {
-    console.log("data", data);
     if (!review) return;
     updateReview.mutate(
       {
@@ -31,7 +30,6 @@ const EditModal = ({ modalRef, review, refetch }) => {
         onSuccess: (data) => {
           modalRef.current?.close();
           refetch();
-          console.log("edit", data);
         },
       }
     );

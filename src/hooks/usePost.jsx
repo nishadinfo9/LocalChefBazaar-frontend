@@ -26,6 +26,7 @@ const usePost = ({
       invalidateQueries.forEach((q) => queryClient.invalidateQueries(q));
     },
     onError: (error) => {
+      console.log(error);
       const msg = error?.response?.data?.message || "Something went wrong!";
       toast.error(msg);
     },

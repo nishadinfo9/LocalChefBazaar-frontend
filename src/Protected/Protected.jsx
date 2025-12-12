@@ -6,8 +6,8 @@ import toast from "react-hot-toast";
 
 const Protected = ({ children }) => {
   const location = useLocation();
-  const { user, loading } = useAuth();
-  if (loading) return <Loader />;
+  const { user, isLoading } = useAuth();
+  if (isLoading) return <Loader />;
 
   if (!user) {
     return <Navigate state={location.pathname} to={"/login"} />;

@@ -8,7 +8,6 @@ import Logo from "../../Logo/Logo";
 const Header = () => {
   const navigate = useNavigate();
   const { user, setUser } = useAuth();
-  console.log("user", user);
 
   const publicNavItems = [
     { path: "/", name: "Home" },
@@ -18,15 +17,15 @@ const Header = () => {
   const logoutUser = usePost({
     url: "/user/logout",
     invalidateQueries: [["user"]],
-    message: 'Logout successfully'
+    message: "Logout successfully",
   });
 
   const privateNavItems = [{ path: "/dashboard", name: "Dashboard" }];
 
   const logoutHandler = () => {
     logoutUser.mutate(null, {
-      onSuccess: (data) => {
-        setUser(data.user);
+      onSuccess: () => {
+        setUser(null);
         navigate("/login");
       },
     });

@@ -59,8 +59,6 @@ const ViewDetails = () => {
     );
   }, [addFavorite]);
 
-  console.log(isFavorite);
-
   if (isLoading) return <Loader />;
   if (isError) return <p>{error}</p>;
 

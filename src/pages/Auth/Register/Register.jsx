@@ -38,7 +38,6 @@ const Register = () => {
     try {
       createAccount.mutate(formData, {
         onSuccess: (data) => {
-          console.log(data);
           reset();
           navigate("/login");
         },
