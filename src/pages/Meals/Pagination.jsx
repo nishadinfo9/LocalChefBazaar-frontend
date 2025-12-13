@@ -1,8 +1,6 @@
 import React from "react";
 
 const Pagination = ({ currentPage, totalPage, setCurrentPage }) => {
-  console.log("currentPage", currentPage);
-  console.log("totalPage", totalPage);
   return (
     <div className="flex items-center justify-center my-10 gap-2">
       <button
