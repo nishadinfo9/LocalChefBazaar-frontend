@@ -1,9 +1,17 @@
 import React from "react";
 
 const Pagination = ({ currentPage, totalPage, setCurrentPage }) => {
+  console.log("currentPage", currentPage);
+  console.log("totalPage", totalPage);
   return (
     <div className="flex items-center justify-center my-10 gap-2">
-      <button className=" btn">Previous</button>
+      <button
+        disabled={currentPage === 0}
+        onClick={() => setCurrentPage(currentPage - 1)}
+        className=" btn"
+      >
+        Previous
+      </button>
       {[...Array(totalPage).keys()].map((page) => (
         <button
           key={page}
@@ -13,7 +21,13 @@ const Pagination = ({ currentPage, totalPage, setCurrentPage }) => {
           {page + 1}
         </button>
       ))}
-      <button className="btn">Next</button>
+      <button
+        disabled={currentPage === totalPage - 1}
+        onClick={() => setCurrentPage(currentPage + 1)}
+        className="btn"
+      >
+        Next
+      </button>
     </div>
   );
 };

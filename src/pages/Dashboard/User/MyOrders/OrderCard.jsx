@@ -124,7 +124,7 @@ const OrderCard = ({ order }) => {
           {paymentStatus === "pending" ? "Pay" : "Paid"}
         </button>
       </div>
-      <div className="divider -mb-0 md:mb-10 col-span-3"></div>
+      <div className="divider  col-span-3"></div>
     </div>
   );
 };
