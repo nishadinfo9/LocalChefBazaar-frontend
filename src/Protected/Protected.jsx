@@ -14,7 +14,6 @@ const Protected = ({ children }) => {
   }
 
   if (user?.status === "fraud") {
-    toast.error("⚠️ Your account is banned or inactive.");
     return <Navigate to={"/banned"} />;
   }
 

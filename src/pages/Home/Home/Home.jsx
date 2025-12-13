@@ -10,8 +10,8 @@ const Home = () => {
       <Slide />
       <FoodList />
       <Review />
-      <div className="p-10 my-10 w-3xl mx-auto border-2 border-secondary">
-        <h2 className="mb-10 text-3xl font-bold text text-secondary">
+      <div className="p-10 my-10 md:w-3xl mx-auto border-2 border-secondary">
+        <h2 className="mb-10 text-xl  md:text-3xl font-bold text text-secondary">
           Frequandly Ask Queation
         </h2>
         <Collapse

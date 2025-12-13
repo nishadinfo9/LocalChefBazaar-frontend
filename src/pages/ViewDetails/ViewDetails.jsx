@@ -88,10 +88,10 @@ const ViewDetails = () => {
         </div>
 
         {/* CTA Button */}
-        <div className="text-center space-x-10 mt-10">
+        <div className="text-center flex items-center justify-center space-x-10 mt-10">
           <Button
             onClick={() => navigate(`/meals/order/${id}`)}
-            size="w-3xs"
+            size="w-40 md:w-3xs"
             rounded="rounded-3xl"
           >
             Order Now
@@ -99,7 +99,7 @@ const ViewDetails = () => {
           <Button
             onClick={addFavoriteMealHandler}
             className="justify-self-end"
-            size="w-3xs"
+            size="w-40 md:w-3xs"
             bg="bg-primary"
             rounded="rounded-3xl"
           >

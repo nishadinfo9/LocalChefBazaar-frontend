@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
@@ -30,12 +30,12 @@ const Review = () => {
   if (isError) return <p>{error}</p>;
 
   return (
-    <div className="my-20">
+    <div className="my-10 md:my-20">
       <div className="flex flex-col items-center justify-center gap-5 my-10 ">
         <h3 className="text-5xl text-center font-bold my-8 text-secondary">
           Review
         </h3>
-        <p className="md:w-3xl text-center">
+        <p className="md:w-3xl text-center text-xs md:text-lg">
           Discover a world of fresh, delicious, and high-quality foods at Food
           Bazar. From farm-fresh vegetables to tasty snacks, we bring
           convenience, flavor, and happiness to your table every day!
@@ -62,7 +62,7 @@ const Review = () => {
         modules={[EffectCoverflow, Pagination, Autoplay]}
         className="mySwiper"
       >
-        <div className="grid md:grid-cols-5 grid-cols-2">{slides}</div>
+        <div className="grid md:grid-cols-5 ">{slides}</div>
       </Swiper>
     </div>
   );

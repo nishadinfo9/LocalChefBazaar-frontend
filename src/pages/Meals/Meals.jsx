@@ -39,7 +39,7 @@ const Meals = () => {
         <h2 className="md:text-5xl text-4xl md:pl-0 pl-5 font-bold my-10 text-secondary">
           All Meals
         </h2>
-        <div className="justify-self-end my-5">
+        <div className="justify-self-end md:mr-0 mr-10 my-5">
           <SortSelect sortVal={sortVal} sortHandler={sortHandler} />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-20">

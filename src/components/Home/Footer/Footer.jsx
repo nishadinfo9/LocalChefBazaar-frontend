@@ -1,17 +1,18 @@
 import React from "react";
 import Logo from "../../Logo/Logo";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="footer sm:footer-horizontal bg-base-100 text-base-content p-10">
-      <nav>
+    <footer className="footer grid-cols-3 md:grid-cols-4  bg-base-100 text-base-content p-10">
+      <nav className="col-span-3 md:col-span-1">
         <h6 className="">
-          <Logo />
+          <Logo title="flex" />
         </h6>
       </nav>
       <nav>
         <h6 className="footer-title">Services</h6>
-        <a className="link link-hover">Branding</a>
+        <Link to={'/'} className="link link-hover">Branding</Link>
         <a className="link link-hover">Design</a>
         <a className="link link-hover">Marketing</a>
         <a className="link link-hover">Advertisement</a>
@@ -23,9 +24,9 @@ const Footer = () => {
         <a className="link link-hover">Jobs</a>
         <a className="link link-hover">Press kit</a>
       </nav>
-      <nav>
+      <nav className="">
         <h6 className="footer-title">Social</h6>
-        <div className="grid grid-flow-col gap-4">
+        <div className="grid md:grid-flow-col gap-4">
           <a>
             <svg
               xmlns="http://www.w3.org/2000/svg"

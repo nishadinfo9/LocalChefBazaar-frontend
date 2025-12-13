@@ -14,8 +14,8 @@ const FoodList = () => {
   if (!data?.meals?.length) return <p>Meal Not Found</p>;
 
   return (
-    <div className="my-20">
-      <h2 className="md:text-5xl text-4xl pl-5 font-bold my-20 text-secondary">
+    <div className="md:my-20">
+      <h2 className="md:text-5xl text-4xl pl-5 font-bold md:my-20 my-10 text-secondary">
         LATEST MEALS
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-20">

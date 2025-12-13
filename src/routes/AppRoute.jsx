@@ -28,6 +28,7 @@ import PlatformStatistics from "../pages/Dashboard/Admin/PlatformStatistics/Plat
 import ChefProtected from "../Protected/ChefProtected";
 import AdminProtected from "../Protected/AdminProtected";
 import Banned from "../pages/Banned/Banned";
+import Dashboard from "../pages/Dashboard/Dashboard/Dashboard";
 
 const AppRoute = () => {
   const router = createBrowserRouter([
@@ -70,6 +71,7 @@ const AppRoute = () => {
       ),
       HydrateFallback: <Loader />,
       children: [
+        { path: "/dashboard", element: <Dashboard /> },
         { path: "/dashboard/profile", element: <MyProfile /> },
         { path: "/dashboard/my-orders", element: <MyOrders /> },
         { path: "/dashboard/my-reviews", element: <MyReviews /> },

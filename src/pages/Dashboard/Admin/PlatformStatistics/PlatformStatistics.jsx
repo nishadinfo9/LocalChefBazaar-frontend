@@ -59,7 +59,7 @@ const PlatformStatistics = () => {
     { name: "Delivered Orders", value: stats.deliveredOrders || 0 },
   ];
 
-  const COLORS = ["#ff5722", "#4caf50"];
+  const COLORS = ["#F0B100", "#AD46FF"];
 
   return (
     <div className="p-6 ">
@@ -84,7 +84,7 @@ const PlatformStatistics = () => {
 
       <div className="bg-white p-4  rounded-lg shadow-md">
         <h3 className="text-xl font-bold mb-4">Orders Status</h3>
-        <div className="md:w-full h-60">
+        <div className="md:w-full h-70">
           <ResponsiveContainer width="100%" height={240}>
             <PieChart>
               <Pie

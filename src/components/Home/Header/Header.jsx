@@ -32,7 +32,7 @@ const Header = () => {
   };
 
   return (
-    <div className="navbar bg-base-100 px-10">
+    <div className="navbar bg-base-100 md:px-10">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -54,7 +54,7 @@ const Header = () => {
           </div>
           <ul
             tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow"
           >
             {publicNavItems.map((nav, i) => (
               <li key={i}>
