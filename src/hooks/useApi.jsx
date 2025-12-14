@@ -2,7 +2,7 @@ import axios from "axios";
 
 const useApi = () => {
   return axios.create({
-    baseURL: "https://localchefbazaar-backend-production.up.railway.app/api/v1",
+    baseURL: "https://localchefbazaar.onrender.com/api/v1",
   });
 };
 
