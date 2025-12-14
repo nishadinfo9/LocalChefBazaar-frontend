@@ -8,7 +8,7 @@ import Pagination from "./Pagination";
 const Meals = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [sortVal, setSortVal] = useState("");
-  let limit = 2;
+  let limit = 10;
 
   const { data, isLoading, isError, error, refetch } = useFetch({
     url: `/meals/all-meals?limit=${limit}&skip=${
