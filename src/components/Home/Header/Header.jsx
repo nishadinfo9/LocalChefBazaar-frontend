@@ -4,6 +4,8 @@ import useAuth from "../../../hooks/useAuth";
 import usePost from "../../../hooks/usePost";
 import Profile from "./Profile";
 import Logo from "../../Logo/Logo";
+import { FiSearch } from "react-icons/fi";
+import { MdLogin } from "react-icons/md";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -32,7 +34,7 @@ const Header = () => {
   };
 
   return (
-    <div className="navbar bg-base-100 md:px-10">
+    <div className="navbar">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -72,9 +74,9 @@ const Header = () => {
         <Logo />
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="flex items-center gap-5 font-medium ">
           {publicNavItems.map((nav, i) => (
-            <li key={i}>
+            <li className="hover:border-b-2  transition-all" key={i}>
               <Link to={nav.path}> {nav.name}</Link>
             </li>
           ))}
@@ -87,6 +89,7 @@ const Header = () => {
         </ul>
       </div>
       <div className="navbar-end gap-5">
+        <FiSearch className="cursor-pointer" fontSize={25} />
         {user ? (
           <>
             <button
@@ -98,8 +101,12 @@ const Header = () => {
             <Profile profile={user?.profileImage} />
           </>
         ) : (
-          <Link to={"/login"} className="btn btn-secondary w-20">
-            Login
+          <Link
+            to={"/login"}
+            className="btn border-none bg-white rounded-full gap-3 shadow-md"
+          >
+            <MdLogin size={25} />
+            <p className="text-lg font-medium">Login</p>
           </Link>
         )}
       </div>

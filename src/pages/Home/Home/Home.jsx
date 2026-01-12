@@ -3,10 +3,16 @@ import Slide from "../Sidebar/Slide";
 import Review from "../Review/Review";
 import FoodList from "../FoodCard/FoodList";
 import Collapse from "../Collapse/Collapse";
+import { FoodSlider } from "../../../components/Home/Menu/Menu";
+import Hero from "../../../components/Home/Hero/Hero";
+import { CategoriesSection } from "../../../components/Home/Categories/Categories";
 
 const Home = () => {
   return (
     <div>
+      <Hero />
+      <FoodSlider />
+      <CategoriesSection />
       <Slide />
       <FoodList />
       <Review />

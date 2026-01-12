@@ -5,12 +5,18 @@ import Footer from "../components/Home/Footer/Footer";
 
 const Layout = () => {
   return (
-    <div>
-      <Header />
-      <div className="w-full  md:max-w-7xl mx-auto">
+    <div className="bg-[#FFF1E1]">
+      <header className="md:mx-auto w-11/12">
+        <Header />
+      </header>
+
+      <main className="md:mx-auto w-11/12">
         <Outlet />
+      </main>
+
+      <div className="md:mx-auto w-11/12">
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 };

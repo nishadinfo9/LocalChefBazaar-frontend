@@ -5,7 +5,7 @@ const Button = ({
   children,
   size = "",
   bg = "btn-secondary",
-  rounded = "rounded-xl",
+  rounded = "rounded-full",
   type = "submit",
   className = "",
   ...props

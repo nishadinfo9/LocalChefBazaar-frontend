@@ -8,7 +8,7 @@ const Logo = ({ title = "hidden" }) => {
       className="text-xl font-bold flex items-center justify-center gap-2"
     >
       <img className="w-10" src="/images/logo.png" alt="" />
-      <p className={`${title} md:flex`}>LocalChefBazaar</p>
+      <p className={`${title} md:flex text-primary font-bold`}>LocalChefBazaar</p>
     </Link>
   );
 };
