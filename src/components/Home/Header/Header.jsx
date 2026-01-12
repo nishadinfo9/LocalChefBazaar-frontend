@@ -4,7 +4,6 @@ import useAuth from "../../../hooks/useAuth";
 import usePost from "../../../hooks/usePost";
 import Profile from "./Profile";
 import Logo from "../../Logo/Logo";
-import { FiSearch } from "react-icons/fi";
 import { MdLogin } from "react-icons/md";
 
 const Header = () => {
@@ -89,7 +88,6 @@ const Header = () => {
         </ul>
       </div>
       <div className="navbar-end gap-5">
-        <FiSearch className="cursor-pointer" fontSize={25} />
         {user ? (
           <>
             <button
