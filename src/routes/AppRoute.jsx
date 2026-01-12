@@ -29,6 +29,8 @@ import ChefProtected from "../Protected/ChefProtected";
 import AdminProtected from "../Protected/AdminProtected";
 import Banned from "../pages/Banned/Banned";
 import Dashboard from "../pages/Dashboard/Dashboard/Dashboard";
+import TermsOfService from "../pages/Terms/Terms";
+import PrivacyPolicy from "../pages/PrivacyPolicy/PrivacyPolicy";
 
 const AppRoute = () => {
   const router = createBrowserRouter([
@@ -44,6 +46,8 @@ const AppRoute = () => {
         { path: "/meals", Component: Meals },
         { path: "/forbidden", Component: Forbidden },
         { path: "/banned", Component: Banned },
+        { path: "/terms", Component: TermsOfService },
+        { path: "/privacy-policy", Component: PrivacyPolicy },
         {
           path: "/meals/:id",
           element: (

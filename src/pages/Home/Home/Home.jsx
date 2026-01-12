@@ -1,5 +1,4 @@
 import React from "react";
-import Slide from "../Sidebar/Slide";
 import Review from "../Review/Review";
 import FoodList from "../FoodCard/FoodList";
 import Collapse from "../Collapse/Collapse";
@@ -13,7 +12,6 @@ const Home = () => {
       <Hero />
       <FoodSlider />
       <CategoriesSection />
-      <Slide />
       <FoodList />
       <Review />
       <div className="p-10 my-10 md:w-3xl mx-auto border-2 border-secondary">

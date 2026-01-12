@@ -1,7 +1,8 @@
 import React from "react";
+import { FaUser, FaUserShield, FaChevronRight } from "react-icons/fa";
 import Input from "../../../utils/Input";
 import Button from "../../../utils/Button";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import usePost from "../../../hooks/usePost";
 import useAuth from "../../../hooks/useAuth";
@@ -9,9 +10,11 @@ import useAuth from "../../../hooks/useAuth";
 const Login = () => {
   const { setUser } = useAuth();
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
+    setValue, // <-- needed for auto-fill
     reset,
     formState: { errors },
   } = useForm();
@@ -22,16 +25,36 @@ const Login = () => {
     message: "Login successfully",
   });
 
+  // Unified login handler
   const loginHandler = (data) => {
     if (!data) return;
+
+    // If role is selected (via button), we can auto-fill email/password for demo
     loginUser.mutate(data, {
-      onSuccess: (data) => {
-        localStorage.setItem("accessToken", data.accessToken);
-        setUser(data?.user);
+      onSuccess: (res) => {
+        localStorage.setItem("accessToken", res.accessToken);
+        setUser(res.user);
         reset();
-        navigate("/");
+
+        // Redirect based on role
+        if (data.role === "user") navigate("/user/dashboard");
+        else if (data.role === "admin") navigate("/admin/dashboard");
+        else navigate("/"); // default
       },
     });
+  };
+
+  const handleRoleAutoFill = (role) => {
+    if (role === "user") {
+      setValue("email", "user@example.com");
+      setValue("password", "User@1234");
+    } else if (role === "chef") {
+      setValue("email", "chef@example.com");
+      setValue("password", "Chef@1234");
+    } else if (role === "admin") {
+      setValue("email", "admin@example.com");
+      setValue("password", "Admin@1234");
+    }
   };
 
   return (
@@ -41,13 +64,14 @@ const Login = () => {
           Login
         </h2>
 
+        {/* Login Form */}
         <form
           onSubmit={handleSubmit(loginHandler)}
           className="flex flex-col gap-4"
         >
           <Input
             {...register("email", {
-              required: "email is required",
+              required: "Email is required",
               pattern: {
                 value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/,
                 message: "Invalid email",
@@ -58,9 +82,10 @@ const Login = () => {
             placeholder="Enter Your Email"
             error={errors.email?.message}
           />
+
           <Input
             {...register("password", {
-              required: "password is required",
+              required: "Password is required",
               pattern: {
                 value:
                   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+={}[\]|\\:;"'<>,.?/~`]).{8,}$/,
@@ -72,10 +97,39 @@ const Login = () => {
             placeholder="Enter Your Password"
             error={errors.password?.message}
           />
+
+          <input {...register("role")} type="hidden" />
+
           <Button type="submit" className="w-full btn btn-secondary">
             Login
           </Button>
         </form>
+
+        {/* Role Buttons */}
+        <div className="flex gap-4 mt-4">
+          <Button
+            type="button" // <-- fixed
+            onClick={() => handleRoleAutoFill("user")}
+            className="flex-1 btn btn-secondary"
+          >
+            <FaUser /> User
+          </Button>
+          <Button
+            type="button" // <-- fixed
+            onClick={() => handleRoleAutoFill("chef")}
+            className="flex-1 btn btn-secondary"
+          >
+            <FaUser /> Chef
+          </Button>
+
+          <Button
+            type="button" // <-- fixed
+            onClick={() => handleRoleAutoFill("admin")}
+            className="flex-1 btn btn-secondary"
+          >
+            <FaUserShield /> Admin
+          </Button>
+        </div>
 
         <p className="text-sm text-gray-600 text-center mt-4">
           Don't have an account?{" "}
