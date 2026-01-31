@@ -13,7 +13,7 @@ import useFetch from "../../../hooks/useFetch";
 import Loader from "../../../utils/Loader";
 
 const Review = () => {
-  const { data, isLoading, isError, error } = useFetch({
+  const { data, isLoading, isError, refetch, error } = useFetch({
     url: "/meals/all-reviews",
     queryKey: ["reviews"],
   });
@@ -27,7 +27,26 @@ const Review = () => {
   }, [data?.reviews]);
 
   if (isLoading) return <Loader />;
-  if (isError) return <p>{error}</p>;
+  if (isError)
+    return (
+      <div className="text-center mt-10">
+        <p className="text-red-500 mb-2">
+          {error?.response?.data?.message ||
+            error?.message ||
+            "Something went wrong"}
+        </p>
+        <button
+          onClick={() => refetch()}
+          className="px-4 py-2 bg-blue-500 text-white rounded"
+        >
+          Retry
+        </button>
+      </div>
+    );
+
+     if (!data?.reviews?.length)
+    return <p className="text-center mt-10">Meal Not Found</p>;
+
 
   return (
     <div className="my-10 md:my-20">

@@ -4,14 +4,32 @@ import useFetch from "../../../hooks/useFetch";
 import Loader from "../../../utils/Loader";
 
 const FoodList = () => {
-  const { data, isLoading, isError, error } = useFetch({
+  const { data, isLoading, isError, refetch, error } = useFetch({
     url: "/meals/all-meals?limit=6",
     queryKey: ["meals"],
   });
 
   if (isLoading) return <Loader />;
-  if (isError) return <p>{error.message}</p>;
-  if (!data?.meals?.length) return <p>Meal Not Found</p>;
+
+  if (isError)
+    return (
+      <div className="text-center mt-10">
+        <p className="text-red-500 mb-2">
+          {error?.response?.data?.message ||
+            error?.message ||
+            "Something went wrong"}
+        </p>
+        <button
+          onClick={() => refetch()}
+          className="px-4 py-2 bg-blue-500 text-white rounded"
+        >
+          Retry
+        </button>
+      </div>
+    );
+
+  if (!data?.meals?.length)
+    return <p className="text-center mt-10">Meal Not Found</p>;
 
   return (
     <div className="md:my-20">
@@ -19,7 +37,7 @@ const FoodList = () => {
         LATEST MEALS
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-20">
-        {data?.meals?.map((meal) => (
+        {data.meals.map((meal) => (
           <FoodCard key={meal._id} meal={meal} />
         ))}
       </div>
