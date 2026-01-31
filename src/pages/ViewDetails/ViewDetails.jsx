@@ -7,11 +7,14 @@ import Button from "../../utils/Button";
 import usePost from "../../hooks/usePost";
 import MealInfo from "./MealInfo";
 import Ingredients from "./Ingredients";
+import useAuth from "../../hooks/useAuth";
 
 const ViewDetails = () => {
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [isFavorite, setIsFavorite] = useState(false);
   const { id } = useParams();
+
   const { data, isLoading, isError, error } = useFetch({
     url: `/meals/single-meal/${id}`,
     queryKey: ["single-meal", id],
@@ -30,17 +33,19 @@ const ViewDetails = () => {
   } = meals;
 
   //Favorite
-  const { data: favoriteData = {}, refetch } = useFetch({
-    url: `/meal/get-favorite-meal/${id}`,
-    queryKey: ["favorites", id],
+  const { data: favoriteData = {} } = useFetch({
+    url: user ? `/meal/get-favorite-meal/${id}` : null,
+    queryKey: ["favorites", id, user],
   });
 
   // Initialize favorite state
   useEffect(() => {
     if (favoriteData.favorited !== undefined) {
-      setIsFavorite(favoriteData.favorited);
+      setIsFavorite(true);
+    } else {
+      setIsFavorite(false);
     }
-  }, [favoriteData]);
+  }, [favoriteData, user]);
 
   const addFavorite = usePost({
     url: `/meal/add-favorite-meal/${id}`,
@@ -55,7 +60,7 @@ const ViewDetails = () => {
         onSuccess: (res) => {
           setIsFavorite(res.favorited);
         },
-      }
+      },
     );
   }, [addFavorite]);
 
@@ -97,13 +102,23 @@ const ViewDetails = () => {
             Order Now
           </Button>
           <Button
-            onClick={addFavoriteMealHandler}
+            onClick={() => {
+              if (!user) {
+                navigate("/login");
+                return;
+              }
+              addFavoriteMealHandler();
+            }}
             className="justify-self-end"
             size="w-40 md:w-3xs"
             bg="bg-primary"
             rounded="rounded-3xl"
           >
-            {isFavorite ? "Favorited" : "Add To Favorite"}
+            {addFavorite.isPending
+              ? "Adding"
+              : isFavorite
+                ? "Favorited"
+                : "Add To Favorite"}
           </Button>
         </div>
       </div>

@@ -1,41 +1,19 @@
 import React, { memo } from "react";
 import { FaAngleLeft, FaAngleRight, FaStar } from "react-icons/fa";
-import useAuth from "../../hooks/useAuth";
 import Select from "../../utils/Select";
 import Input from "../../utils/Input";
 import Button from "../../utils/Button";
-import { useForm } from "react-hook-form";
 import useFetch from "../../hooks/useFetch";
 import Loader from "../../utils/Loader";
-import usePost from "../../hooks/usePost";
 import { shortTimeAgo } from "../../utils/shortTimeAgo";
+import ReviewForm from "./ReviewForm";
 
 const Reviews = memo(({ foodId }) => {
-  const { user } = useAuth();
-  const { register, handleSubmit, reset } = useForm();
   const { data, isLoading, isError, error } = useFetch({
     url: `/meals/reviews/${foodId}`,
     queryKey: ["reviews", foodId],
     enabled: !!foodId,
   });
-
-  const createReview = usePost({
-    url: "/meals/review-create",
-    invalidateQueries: [["reviews", foodId]],
-    message: "review successfully",
-  });
-
-  const reviewHandler = (data) => {
-    const { comment, rating } = data;
-    createReview.mutate(
-      { foodId, comment, rating },
-      {
-        onSuccess: (data) => {
-          reset();
-        },
-      }
-    );
-  };
 
   if (isLoading) return <Loader />;
   if (isError) return <p>{error}</p>;
@@ -97,36 +75,7 @@ const Reviews = memo(({ foodId }) => {
           Add Your Review
         </h3>
 
-        <form onSubmit={handleSubmit(reviewHandler)} className="space-y-5">
-          <Input
-            bg="bg-white"
-            label={"Your Name"}
-            value={user?.name}
-            readOnly
-            placeholder="Enter your name"
-          />
-
-          <Select
-            bg="bg-white"
-            label={"Rating"}
-            options={["1", "2", "3", "4", "5"]}
-            {...register("rating", { required: true })}
-          />
-
-          <div>
-            <label className="block font-semibold text-gray-700 mb-1">
-              Your Review
-            </label>
-            <textarea
-              {...register("comment", { required: true })}
-              rows="4"
-              className="w-full px-4 py-2 rounded-xl border border-gray-300 focus:border-secondary focus:ring-secondary focus:ring-1 outline-none"
-              placeholder="Share your experience..."
-            ></textarea>
-          </div>
-
-          <Button type="submit">Give Review</Button>
-        </form>
+        <ReviewForm foodId={foodId} />
       </div>
     </div>
   );

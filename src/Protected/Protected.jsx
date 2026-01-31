@@ -2,7 +2,6 @@ import React from "react";
 import useAuth from "../hooks/useAuth";
 import { Navigate, useLocation } from "react-router-dom";
 import Loader from "../utils/Loader";
-import toast from "react-hot-toast";
 
 const Protected = ({ children }) => {
   const location = useLocation();

@@ -1,4 +1,3 @@
-import React from "react";
 import { Link, useNavigate } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 import usePost from "../../../hooks/usePost";
@@ -21,11 +20,14 @@ const Header = () => {
     message: "Logout successfully",
   });
 
+  console.log("logoutUser", logoutUser);
+
   const privateNavItems = [{ path: "/dashboard", name: "Dashboard" }];
 
   const logoutHandler = () => {
     logoutUser.mutate(null, {
       onSuccess: () => {
+        localStorage.clear("accessToken");
         setUser(null);
         navigate("/login");
       },
@@ -92,9 +94,10 @@ const Header = () => {
           <>
             <button
               onClick={logoutHandler}
+              disabled={logoutUser.isPending}
               className="btn text-white btn-primary"
             >
-              Logout
+              {logoutUser.isPending ? "Logging out" : "Logout"}
             </button>
             <Profile profile={user?.profileImage} />
           </>

@@ -50,11 +50,7 @@ const AppRoute = () => {
         { path: "/privacy-policy", Component: PrivacyPolicy },
         {
           path: "/meals/:id",
-          element: (
-            <Protected>
-              <ViewDetails />
-            </Protected>
-          ),
+          element: <ViewDetails />,
         },
         {
           path: "/meals/order/:mealId",

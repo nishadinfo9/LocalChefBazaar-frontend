@@ -14,13 +14,14 @@ const useFetch = ({
   return useQuery({
     queryKey,
     queryFn: async () => {
+      if (!url) return null;
       const token = localStorage.getItem("accessToken");
       const response = await api.get(url, {
         headers: { Authorization: `Bearer ${token}` },
       });
       return response.data;
     },
-    enabled,
+    enabled: !!url && enabled,
     staleTime,
     keepPreviousData,
     select,

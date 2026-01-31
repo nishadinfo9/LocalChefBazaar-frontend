@@ -4,7 +4,7 @@ import axios from "axios";
 
 const useApi = () => {
   return axios.create({
-    baseURL: "https://localchefbazaar.onrender.com/api/v1",
+    baseURL: import.meta.env.VITE_API_URL,
   });
 };
 

@@ -37,7 +37,7 @@ const Register = () => {
 
     try {
       createAccount.mutate(formData, {
-        onSuccess: (data) => {
+        onSuccess: () => {
           reset();
           navigate("/login");
         },
@@ -127,8 +127,12 @@ const Register = () => {
             error={errors.confirmPassword?.message}
           />
 
-          <Button type="submit" className="w-full btn btn-secondary">
-            Register
+          <Button
+            disabled={createAccount.isPending}
+            type="submit"
+            className={`w-full btn btn-secondary disabled:bg-gray-800`}
+          >
+            {createAccount.isPending ? "Registering" : "Register"}
           </Button>
         </form>
 

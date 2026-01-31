@@ -14,7 +14,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    setValue, // <-- needed for auto-fill
+    setValue,
     reset,
     formState: { errors },
   } = useForm();
@@ -25,11 +25,9 @@ const Login = () => {
     message: "Login successfully",
   });
 
-  // Unified login handler
   const loginHandler = (data) => {
     if (!data) return;
 
-    // If role is selected (via button), we can auto-fill email/password for demo
     loginUser.mutate(data, {
       onSuccess: (res) => {
         localStorage.setItem("accessToken", res.accessToken);
@@ -39,7 +37,7 @@ const Login = () => {
         // Redirect based on role
         if (data.role === "user") navigate("/user/dashboard");
         else if (data.role === "admin") navigate("/admin/dashboard");
-        else navigate("/"); // default
+        else navigate("/");
       },
     });
   };
@@ -100,8 +98,12 @@ const Login = () => {
 
           <input {...register("role")} type="hidden" />
 
-          <Button type="submit" className="w-full btn btn-secondary">
-            Login
+          <Button
+            disabled={loginUser.isPending}
+            type="submit"
+            className="w-full btn  btn-secondary"
+          >
+            {loginUser.isPending ? "Logging in..." : "Login"}
           </Button>
         </form>
 
