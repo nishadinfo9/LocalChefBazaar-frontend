@@ -33,7 +33,7 @@ export const CategoriesSection = () => {
               alt="Dessert"
               className="w-full h-full object-cover"
             />
-            <button className="absolute bottom-4 left-4 bg-white px-4 py-1.5 rounded-full text-sm font-semibold shadow">
+            <button className="absolute bottom-4 left-4 bg-white hover:bg-primary hover:text-white transition-all ease-in cursor-pointer px-4 py-1.5 rounded-full text-sm font-semibold shadow">
               Order Now
             </button>
           </div>
@@ -46,7 +46,7 @@ export const CategoriesSection = () => {
               className="w-full h-full object-cover"
             />
 
-            <button className="absolute bottom-4 left-4 bg-white px-4 py-1.5 rounded-full text-sm font-semibold shadow">
+            <button className="absolute bottom-4 left-4 bg-white hover:bg-primary hover:text-white transition-all ease-in cursor-pointer px-4 py-1.5 rounded-full text-sm font-semibold shadow">
               Order Now
             </button>
           </div>
@@ -55,9 +55,9 @@ export const CategoriesSection = () => {
         {/* RIGHT – TEXT CONTENT */}
 
         <div className="flex flex-col justify-between">
-          <CategoryItem image={'/images/fast-food.png'} color="bg-red-500" />
-          <CategoryItem image={'/images/delivery.png'} color="bg-blue-500" />
-          <CategoryItem image={'/images/restaurant.png'} color="bg-green-500" />
+          <CategoryItem image={"/images/fast-food.png"} color="bg-red-500" />
+          <CategoryItem image={"/images/delivery.png"} color="bg-blue-500" />
+          <CategoryItem image={"/images/restaurant.png"} color="bg-green-500" />
         </div>
       </div>
     </section>

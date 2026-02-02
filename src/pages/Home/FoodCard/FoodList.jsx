@@ -32,11 +32,11 @@ const FoodList = () => {
     return <p className="text-center mt-10">Meal Not Found</p>;
 
   return (
-    <div className="md:my-20">
+    <div className="md:my-20 md:max-w-6xl">
       <h2 className="md:text-5xl text-4xl pl-5 font-bold md:my-20 my-10 text-secondary">
         LATEST MEALS
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-20">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-y-15">
         {data.meals.map((meal) => (
           <FoodCard key={meal._id} meal={meal} />
         ))}

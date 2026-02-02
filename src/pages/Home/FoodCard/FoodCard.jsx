@@ -1,12 +1,15 @@
 import React, { memo } from "react";
+import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const FoodCard = memo(({ meal }) => {
-  const { rating, price, foodImage, _id, chefName } = meal;
+  const description =
+    " A card component has a figure, a body part, and inside body there are title and actions parts.";
+  const { rating, price, foodImage, _id, foodName } = meal;
   return (
-    <div className="card bg-white mx-auto w-96 shadow-2xl p-5 flex flex-col">
+    <div className="card bg-white mx-auto w-80 shadow-2xl p-5 flex flex-col">
       {/* Image */}
-      <figure className="h-56 w-full overflow-hidden rounded-xl">
+      <figure className="h-40 w-full overflow-hidden rounded-xl">
         <img
           className="w-full h-full object-cover"
           src={foodImage}
@@ -17,29 +20,33 @@ const FoodCard = memo(({ meal }) => {
       {/* Card Body */}
       <div className="card-body p-0 mt-4 flex flex-col gap-3">
         {/* Title and Rating */}
-        <div className="relative">
-          <h2 className="card-title text-lg font-semibold pr-12">{chefName}</h2>
-          <div className="absolute top-0 right-0 badge badge-outline text-primary">
-            {rating} ★
+        <div className="flex items-center justify-between">
+          <h2 className="card-title text-lg font-semibold pr-12">
+            {foodName.slice(0, 20)}
+            {foodName.length > 20 && "..."}
+          </h2>
+          <div className=" text-yellow-400 flex items-center">
+            <h3 className="text-xl font-semibold">{rating}</h3>
+            {rating < 5 ? <FaStarHalfAlt size={25} /> : <FaStar size={25} />}
           </div>
         </div>
 
         {/* Description */}
         <p className="text-sm text-gray-600">
-          A card component has a figure, a body part, and inside body there are
-          title and actions parts.
+          {description.slice(0, 60)}
+          {description.length > 60 && "..."}
         </p>
 
         {/* Price */}
         <div className="flex justify-between gap-5">
-          <div className="badge badge-outline text-secondary">
-            Price ${price}
+          <div className="  text-xl font-semibold flex items-center gap-2">
+            <p className="text-green-600"> ${price}</p>
           </div>
           <Link
             to={`/meals/${_id}`}
-            className="w-40 text-center bg-secondary hover:bg-green-600 text-white  py-1 rounded-xl"
+            className="w-32 text-center font-medium border-2 border-primary  hover:bg-primary hover:text-white transition-colors ease-in-out text-primary  py-1 rounded-3xl"
           >
-            See Details
+            View Details
           </Link>
         </div>
 
