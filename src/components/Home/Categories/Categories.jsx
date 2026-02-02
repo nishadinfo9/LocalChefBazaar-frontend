@@ -2,8 +2,8 @@ import { CategoryItem } from "./CategoryItem";
 
 export const CategoriesSection = () => {
   return (
-    <section className="py-24">
-      <h2 className="text-4xl font-bold my-10">
+    <section className="py-25">
+      <h2 className="text-4xl font-bold my-5">
         Our <span className="text-orange-500">Categories</span>
       </h2>
 

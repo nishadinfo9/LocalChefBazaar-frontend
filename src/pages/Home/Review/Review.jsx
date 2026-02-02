@@ -49,9 +49,9 @@ const Review = () => {
 
 
   return (
-    <div className="my-10 md:my-20">
+    <div className="my-10 md:mt-30">
       <div className="flex flex-col items-center justify-center gap-5 my-10 ">
-        <h3 className="text-5xl text-center font-bold my-8 text-secondary">
+        <h3 className="text-5xl text-center font-bold text-secondary">
           Review
         </h3>
         <p className="md:w-3xl text-center text-xs md:text-lg">

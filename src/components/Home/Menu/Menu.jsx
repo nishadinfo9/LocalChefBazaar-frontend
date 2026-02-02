@@ -5,7 +5,7 @@ import Button from "../../../utils/Button";
 
 export const FoodSlider = () => {
   return (
-    <div className="w-full bg-[#FCEEDD] py-16 md:py-24 flex justify-center">
+    <div className="w-full bg-[#FCEEDD] flex justify-center">
       <div className="relative w-full max-w-7xl px-4 md:px-0">
         <div
           className="

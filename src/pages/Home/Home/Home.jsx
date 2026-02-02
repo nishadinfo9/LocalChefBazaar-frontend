@@ -14,8 +14,8 @@ const Home = () => {
       <CategoriesSection />
       <FoodList />
       <Review />
-      <div className="p-10 my-10 md:w-3xl mx-auto">
-        <h2 className="mb-10 text-xl  md:text-3xl font-bold text text-secondary">
+      <div className="my-10 mb-20 md:mt-30 md:w-3xl mx-auto">
+        <h2 className="mb-10 text-xl text-center md:text-3xl font-bold text text-secondary">
           Frequandly Ask Queation
         </h2>
         <Collapse

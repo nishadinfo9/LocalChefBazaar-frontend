@@ -7,7 +7,7 @@ const FoodCard = memo(({ meal }) => {
     " A card component has a figure, a body part, and inside body there are title and actions parts.";
   const { rating, price, foodImage, _id, foodName } = meal;
   return (
-    <div className="card bg-white mx-auto w-80 shadow-2xl p-5 flex flex-col">
+    <div className="card bg-white mx-auto  shadow-2xl p-5 flex flex-col">
       {/* Image */}
       <figure className="h-40 w-full overflow-hidden rounded-xl">
         <img
