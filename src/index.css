@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: light --default, dark --prefersdark;
+  themes:
+    light --default,
+    dark --prefersdark;
   themes: light --default;
 }
 
@@ -8,10 +10,10 @@
   name: "light";
   default: true;
 
-  --color-primary: #db4231;
-  --color-secondary: #CD2525;
+  --color-primary: #f03328;
+  --color-secondary: #ff9e0c;
   --color-accent: #303425;
-  --color-neutral: #FA8C3E;
+  --color-neutral: #fa8c3e;
   --color-base-100: #fff8f0;
   --color-base-200: #ffe0b2;
   --color-base-300: #ffcc80;
@@ -19,6 +21,9 @@
   --color-success: #66bb6a;
   --color-warning: #ffb300;
   --color-error: #d32f2f;
+}
+body {
+  font-family: "Poppins";
 }
 
 @custom-variant dark (&:where([data-theme=night], [data-theme=night] *));

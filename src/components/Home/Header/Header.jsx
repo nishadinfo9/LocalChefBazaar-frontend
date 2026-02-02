@@ -11,7 +11,10 @@ const Header = () => {
 
   const publicNavItems = [
     { path: "/", name: "Home" },
-    { path: "/meals", name: "Meals" },
+    { path: "/our-menu", name: "Our Menu" },
+    { path: "/foods", name: "Foods" },
+    { path: "/about-us", name: "About Us" },
+    { path: "/contract-us", name: "Contract Us" },
   ];
 
   const logoutUser = usePost({
@@ -19,8 +22,6 @@ const Header = () => {
     invalidateQueries: [["user"]],
     message: "Logout successfully",
   });
-
-  console.log("logoutUser", logoutUser);
 
   const privateNavItems = [{ path: "/dashboard", name: "Dashboard" }];
 
@@ -35,7 +36,7 @@ const Header = () => {
   };
 
   return (
-    <div className="navbar">
+    <div className="navbar py-5">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -75,12 +76,19 @@ const Header = () => {
         <Logo />
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="flex items-center gap-5 font-medium ">
+        <ul className="flex items-center gap-8 font-medium ">
           {publicNavItems.map((nav, i) => (
-            <li className="hover:border-b-2  transition-all" key={i}>
-              <Link to={nav.path}> {nav.name}</Link>
+            <li key={i} className="relative group">
+              <Link
+                to={nav.path}
+                className="pb-1 transition-colors duration-300 ease-in-out hover:text-primary"
+              >
+                {nav.name}
+                <span className="absolute left-0 -bottom-1 h-[2px] w-0 bg-primary transition-all duration-300 group-hover:w-full"></span>
+              </Link>
             </li>
           ))}
+
           {user &&
             privateNavItems.map((privateNav, i) => (
               <li key={i}>
@@ -104,9 +112,8 @@ const Header = () => {
         ) : (
           <Link
             to={"/login"}
-            className="btn border-none bg-white rounded-full gap-3 shadow-md"
+            className="px-7 py-1 text-primary hover:bg-primary hover:text-white transition-all ease-in-out border-2 border-primary rounded-full gap-3"
           >
-            <MdLogin size={25} />
             <p className="text-lg font-medium">Login</p>
           </Link>
         )}

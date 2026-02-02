@@ -5,12 +5,12 @@ import Loader from "../../utils/Loader";
 import SortSelect from "./SortSelect";
 import Pagination from "./Pagination";
 
-const Meals = () => {
+const OurMenu = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [sortVal, setSortVal] = useState("");
   let limit = 10;
 
-  const { data, isLoading, isError, error, refetch } = useFetch({
+  const { data, isLoading, isError, error } = useFetch({
     url: `/meals/all-meals?limit=${limit}&skip=${
       currentPage * limit
     }&order=${sortVal}`,
@@ -59,4 +59,4 @@ const Meals = () => {
   );
 };
 
-export default Meals;
+export default OurMenu;

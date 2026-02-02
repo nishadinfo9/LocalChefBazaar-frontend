@@ -5,7 +5,6 @@ import Register from "../pages/Auth/Register/Register";
 import Notfound from "../pages/Notfound/Notfound";
 import Layout from "../layout/Layout";
 import Home from "../pages/Home/Home/Home";
-import Meals from "../pages/Meals/Meals";
 import ViewDetails from "../pages/ViewDetails/ViewDetails";
 import Loader from "../utils/Loader";
 import DashboardLayout from "../layout/DashboardLayout";
@@ -31,6 +30,10 @@ import Banned from "../pages/Banned/Banned";
 import Dashboard from "../pages/Dashboard/Dashboard/Dashboard";
 import TermsOfService from "../pages/Terms/Terms";
 import PrivacyPolicy from "../pages/PrivacyPolicy/PrivacyPolicy";
+import OurMenu from "../pages/OurMenu/OurMenu";
+import Foods from "../pages/Foods/Foods";
+import AboutUs from "../pages/AboutUs/AboutUs";
+import ContractUs from "../pages/ContractUs/ContractUs";
 
 const AppRoute = () => {
   const router = createBrowserRouter([
@@ -43,9 +46,12 @@ const AppRoute = () => {
       HydrateFallback: <Loader />,
       children: [
         { index: true, Component: Home },
-        { path: "/meals", Component: Meals },
         { path: "/forbidden", Component: Forbidden },
         { path: "/banned", Component: Banned },
+        { path: "/our-menu", Component: OurMenu },
+        { path: "/foods", Component: Foods },
+        { path: "/about-us", Component: AboutUs },
+        { path: "/contract-us", Component: ContractUs },
         { path: "/terms", Component: TermsOfService },
         { path: "/privacy-policy", Component: PrivacyPolicy },
         {
