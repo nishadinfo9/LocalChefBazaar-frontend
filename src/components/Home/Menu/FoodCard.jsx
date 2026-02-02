@@ -4,7 +4,9 @@ import { FaHeart } from "react-icons/fa";
 
 export const FoodCard = ({ color, title, price }) => {
   return (
-    <div className={`${color} w-full rounded-3xl p-6 text-white relative pt-20`}>
+    <div
+      className={`${color} w-full rounded-3xl p-6 text-white relative pt-20`}
+    >
       {/* FOOD IMAGE */}
       <div className="absolute -top-14 left-1/2 -translate-x-1/2">
         <img

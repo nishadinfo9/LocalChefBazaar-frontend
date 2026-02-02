@@ -13,23 +13,21 @@ const Hero = () => {
         <div className="flex flex-col-reverse md:flex-row items-center gap-16 relative">
           {/* CONTENT */}
           <div className="flex-1 space-y-6 text-center md:text-left">
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-semibold leading-tight text-accent">
-              Healthy <span className="text-primary">Eating</span> Is{" "}
-              <span className="text-neutral">Important</span> Part Of Life
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-primary">
+              Better Your Life <span className="text-secondary">Today</span>
             </h1>
 
-            <p className="text-base sm:text-lg font-medium max-w-md mx-auto md:mx-0">
+            <p className="text-gray-700 sm:text-lg font-medium max-w-md mx-auto md:mx-0">
               We prepare delicious food for you and always care about your
               health.
             </p>
 
             <Link to="/">
               <Button
-                bg="btn-primary"
+                bg="btn-outline border-2 border-primary hover:btn-primary"
                 className="inline-flex items-center gap-2 px-8 py-3 text-lg"
               >
-                Explore Now
-                <FaChevronRight />
+                Start Today
               </Button>
             </Link>
           </div>
@@ -64,7 +62,7 @@ const Hero = () => {
             {/* IMAGE — FRONT */}
             <div className="relative z-30">
               {/* OFFER BADGE */}
-              <div className="absolute -top-6 right-6 z-40 flex h-24 w-24 items-center justify-center rounded-full bg-neutral text-xl font-bold">
+              <div className="absolute -top-6 right-6 z-40 flex h-24 w-24 items-center justify-center rounded-full bg-secondary text-white border-primary border-2 border-dotted text-xl font-semibold">
                 20% Off
               </div>
 

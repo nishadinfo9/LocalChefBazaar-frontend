@@ -15,10 +15,8 @@ export const FoodSlider = () => {
         pt-12 md:pt-20
         pb-10
         shadow-lg
-
         flex md:items-center md:justify-center
         gap-6 md:gap-10
-
         overflow-x-auto md:overflow-visible
         snap-x snap-mandatory
         scrollbar-hide
@@ -74,8 +72,7 @@ export const FoodSlider = () => {
         hidden md:flex
         absolute -right-10 top-1/2 -translate-y-1/2
         w-32 h-32 bg-[#FCEEDD] rounded-full
-        items-center justify-center
-      "
+        items-center justify-center"
         >
           <Button
             bg="bg-white"

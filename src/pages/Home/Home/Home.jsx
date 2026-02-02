@@ -14,7 +14,7 @@ const Home = () => {
       <CategoriesSection />
       <FoodList />
       <Review />
-      <div className="p-10 my-10 md:w-3xl mx-auto border-2 border-secondary">
+      <div className="p-10 my-10 md:w-3xl mx-auto">
         <h2 className="mb-10 text-xl  md:text-3xl font-bold text text-secondary">
           Frequandly Ask Queation
         </h2>
