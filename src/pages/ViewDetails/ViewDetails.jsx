@@ -97,6 +97,7 @@ const ViewDetails = () => {
           <Button
             onClick={() => navigate(`/meals/order/${id}`)}
             size="w-40 md:w-3xs"
+            bg="bg-secondary"
             rounded="rounded-3xl"
           >
             Order Now

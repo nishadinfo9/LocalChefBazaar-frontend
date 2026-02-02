@@ -33,16 +33,18 @@ const OurMenu = () => {
   const totalPage = Math.ceil(totalCount / limit);
 
   return (
-    <div className="my-10">
+    <div>
       <title>Local Chef Bazaar - Meals</title>
       <div>
-        <h2 className="md:text-5xl text-4xl md:pl-0 pl-5 font-bold my-10 text-secondary">
-          All Meals
-        </h2>
-        <div className="justify-self-end md:mr-0 mr-10 my-5">
-          <SortSelect sortVal={sortVal} sortHandler={sortHandler} />
+        <div className="flex items-center justify-between my-5">
+          <h2 className="md:text-3xl text-3xl font-bold text-primary">
+            All <span className="text-secondary">Meals</span>
+          </h2>
+          <div>
+            <SortSelect sortVal={sortVal} sortHandler={sortHandler} />
+          </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-20">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-5 items-center justify-between">
           {meals?.map((meal) => (
             <FoodCard key={meal._id} meal={meal} />
           ))}

@@ -33,7 +33,6 @@ import PrivacyPolicy from "../pages/PrivacyPolicy/PrivacyPolicy";
 import OurMenu from "../pages/OurMenu/OurMenu";
 import Foods from "../pages/Foods/Foods";
 import AboutUs from "../pages/AboutUs/AboutUs";
-import ContractUs from "../pages/ContractUs/ContractUs";
 
 const AppRoute = () => {
   const router = createBrowserRouter([
@@ -51,7 +50,6 @@ const AppRoute = () => {
         { path: "/our-menu", Component: OurMenu },
         { path: "/foods", Component: Foods },
         { path: "/about-us", Component: AboutUs },
-        { path: "/contract-us", Component: ContractUs },
         { path: "/terms", Component: TermsOfService },
         { path: "/privacy-policy", Component: PrivacyPolicy },
         {

@@ -31,7 +31,7 @@ const ReviewForm = ({ foodId }) => {
   };
 
   if (!user)
-    return <Button onClick={() => navigate("/login")}>Give Review</Button>;
+    return <Button bg="bg-primary text-white" onClick={() => navigate("/login")}>Give Review</Button>;
 
   return (
     <form onSubmit={handleSubmit(reviewHandler)} className="space-y-5">

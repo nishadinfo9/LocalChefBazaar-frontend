@@ -25,7 +25,7 @@ const Hero = () => {
             <Link to="/">
               <Button
                 bg="btn-outline border-2 border-primary text-primary hover:text-white hover:btn-primary"
-                className="inline-flex items-center gap-2 px-8 py-3 text-lg "
+                className="inline-flex items-center gap-2 px-8 py-3 text-lg transition-all ease-in"
               >
                 Start Today
               </Button>

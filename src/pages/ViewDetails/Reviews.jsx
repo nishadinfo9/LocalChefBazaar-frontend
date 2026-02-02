@@ -22,14 +22,16 @@ const Reviews = memo(({ foodId }) => {
     <div className="mt-14 bg-white rounded-2xl shadow-xl p-6 md:p-8">
       {/* Existing Reviews */}
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">Customer Reviews</h2>
+        <h2 className="text-3xl font-bold text-primary">
+          Customer <span className="text-secondary">Reviews</span>
+        </h2>
 
         {/* Arrows */}
         <div className="flex items-center gap-3">
-          <button className="w-10 h-10 flex items-center justify-center rounded-full border">
+          <button className="w-10 h-10 flex items-center justify-center rounded-full border-2 border-primary hover:bg-primary transition-all ease-in text-primary hover:text-white cursor-pointer">
             <FaAngleLeft />
           </button>
-          <button className="w-10 h-10 flex items-center justify-center rounded-full border">
+          <button className="w-10 h-10 flex items-center justify-center rounded-full border-2 border-primary hover:bg-primary transition-all ease-in text-primary hover:text-white cursor-pointer">
             <FaAngleRight />
           </button>
         </div>
@@ -71,8 +73,8 @@ const Reviews = memo(({ foodId }) => {
 
       {/* Add Review Form */}
       <div className="mt-10">
-        <h3 className="text-xl font-bold text-gray-800 mb-4">
-          Add Your Review
+        <h3 className="text-xl font-bold text-primary mb-4">
+          Add Your <span className="text-secondary">Review</span>
         </h3>
 
         <ReviewForm foodId={foodId} />
