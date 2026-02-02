@@ -5,6 +5,7 @@ import Profile from "./Profile";
 import Logo from "../../Logo/Logo";
 import { MdLogin } from "react-icons/md";
 import Button from "../../../utils/Button";
+import Dropdown from "./Dropdown";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -36,11 +37,11 @@ const Header = () => {
   };
 
   return (
-    <div className="flex items-center justify-between py-5">
+    <div className=" flex items-center justify-between py-5">
       <div>
         <Logo />
       </div>
-      <div className="flex items-center gap-10">
+      <div className="hidden md:flex items-center gap-10">
         {publicNavItems.map((nav, i) => (
           <div key={i} className="relative group">
             <Link
@@ -66,7 +67,7 @@ const Header = () => {
           ))}
       </div>
       <div>
-        <div className="flex gap-5">
+        <div className="hidden md:flex gap-5">
           {user ? (
             <>
               <Button
@@ -87,6 +88,10 @@ const Header = () => {
             </Link>
           )}
         </div>
+        <Dropdown
+          publicNavItems={publicNavItems}
+          privateNavItems={privateNavItems}
+        />
       </div>
     </div>
   );
