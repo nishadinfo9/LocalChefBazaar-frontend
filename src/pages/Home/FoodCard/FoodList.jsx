@@ -33,8 +33,8 @@ const FoodList = () => {
 
   return (
     <div className="md:my-10 md:max-w-6xl">
-      <h2 className="md:text-5xl text-4xl font-bold  my-5 text-secondary">
-        LATEST MEALS
+      <h2 className="md:text-4xl text-4xl font-bold text-center my-5 text-primary">
+        Latest <span className="text-secondary">Meals</span>
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-5 items-center justify-between">
         {data.meals.map((meal) => (

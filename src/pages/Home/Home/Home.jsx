@@ -15,8 +15,8 @@ const Home = () => {
       <FoodList />
       <Review />
       <div className="my-10 mb-20 md:mt-30 md:w-3xl mx-auto">
-        <h2 className="mb-10 text-xl text-center md:text-3xl font-bold text text-secondary">
-          Frequandly Ask Queation
+        <h2 className="mb-10 text-xl text-center md:text-4xl font-bold text text-primary">
+          Frequandly <span className="text-secondary">Ask Queation</span>
         </h2>
         <Collapse
           question={"How do I register an account in LocalChefBazaar?"}

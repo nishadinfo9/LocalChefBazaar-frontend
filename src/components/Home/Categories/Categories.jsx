@@ -3,8 +3,8 @@ import { CategoryItem } from "./CategoryItem";
 export const CategoriesSection = () => {
   return (
     <section className="py-25">
-      <h2 className="text-4xl font-bold my-5">
-        Our <span className="text-orange-500">Categories</span>
+      <h2 className="text-4xl font-bold my-5 text-center text-primary">
+        Our <span className="text-secondary">Categories</span>
       </h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 ">
