@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
       try {
         setLoading(true);
         const token = localStorage.getItem("accessToken");
-        if (!token) return setLoading(false);
+        if (!token || !user) return;
 
         const response = await api.get("/user/current-user", {
           headers: { Authorization: `Bearer ${token}` },

@@ -8,8 +8,8 @@ import { Feature } from "./Feature";
 
 const Hero = () => {
   return (
-    <div className="min-h-screen md:w-6xl flex items-center">
-      <div className="container mx-auto px-4 md:px-16">
+    <div className="min-h-screen flex items-center">
+      <div className="container mx-auto ">
         <div className="flex flex-col-reverse md:flex-row items-center gap-16 relative">
           {/* CONTENT */}
           <div className="flex-1 space-y-6 text-center md:text-left">
@@ -34,19 +34,7 @@ const Hero = () => {
 
           {/* IMAGE AREA */}
           <div className="flex-1 relative flex justify-center md:justify-end">
-            {/* INFO CARD — BEHIND IMAGE */}
-            <div
-              className="
-        hidden sm:block
-        absolute bottom-5 lg:-left-1
-        z-10
-        bg-white/70 backdrop-blur
-        border border-gray-200
-        rounded-2xl
-        p-5 space-y-4
-        w-80
-      "
-            >
+            <div className="hidden sm:block absolute bottom-5 lg:-left-1 z-10 bg-white/70 backdrop-blur border border-gray-200 rounded-2xl p-5 space-y-4 w-80">
               <Feature
                 icon={<TbTruckDelivery />}
                 title="Fast Delivery"
