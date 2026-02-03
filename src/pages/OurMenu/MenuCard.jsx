@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 const MenuCard = ({ menu }) => {
   const { name, image, description, category } = menu;
   return (
-    <div className="card w-64 bg-white mx-auto shadow-2xl p-5 flex flex-col">
+    <div className="card md:w-64 bg-white md:mx-auto shadow-2xl p-5 flex flex-col">
       {/* Image */}
-      <figure className="h-40 w-full overflow-hidden rounded-xl">
+      <figure className="h-60 md:h-40 w-full overflow-hidden rounded-xl">
         <img className="w-full h-full object-cover" src={image} alt="food" />
       </figure>
 

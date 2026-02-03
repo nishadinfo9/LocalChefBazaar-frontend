@@ -148,10 +148,10 @@ const Foods = () => {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold text-primary my-5">
+      <h2 className="hidden md:block text-3xl font-bold text-primary my-5">
         Top <span className="text-secondary">Categories</span>
       </h2>
-      <div className="flex items-center justify-between">
+      <div className="hidden md:flex items-center justify-between">
         {categories.map((category) => (
           <Button
             key={category.id}
