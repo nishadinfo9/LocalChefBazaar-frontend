@@ -2,7 +2,6 @@ import React from "react";
 import Button from "../../../utils/Button";
 import { TbTruckDelivery } from "react-icons/tb";
 import { BiSolidShoppingBags } from "react-icons/bi";
-import { FaChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Feature } from "./Feature";
 
@@ -22,7 +21,7 @@ const Hero = () => {
               health.
             </p>
 
-            <Link to="/">
+            <Link to="/dashboard">
               <Button
                 bg="btn-outline border-2 border-primary text-primary hover:text-white hover:btn-primary"
                 className="inline-flex items-center gap-2 px-8 py-3 text-lg transition-all ease-in"

@@ -9,29 +9,38 @@ const AuthProvider = ({ children }) => {
   const api = useApi();
 
   useEffect(() => {
+    let isMounted = true;
     const subscribe = async () => {
       try {
         setLoading(true);
         const token = localStorage.getItem("accessToken");
-        if (!token || !user) return;
+        if (!token) {
+          if (isMounted) setLoading(false);
+          return;
+        }
 
         const response = await api.get("/user/current-user", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setUser(response.data?.user);
+        if (isMounted) setUser(response.data?.user);
       } catch (error) {
-        if (error.response.status === 401) {
+        if (!isMounted) return;
+        if (error.response?.status === 401) {
           setError(null);
           setUser(null);
         } else {
-          setError("something went wrong");
+          setError("Something went wrong");
         }
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
 
     subscribe();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const authInfo = { error, loading, user, setUser };

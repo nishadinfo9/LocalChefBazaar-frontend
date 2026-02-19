@@ -44,9 +44,8 @@ const Review = () => {
       </div>
     );
 
-     if (!data?.reviews?.length)
-    return <p className="text-center mt-10">Meal Not Found</p>;
-
+  if (!data?.reviews?.length)
+    return <p className="text-center mt-10">Review Not Found</p>;
 
   return (
     <div className="my-10 md:mt-30">

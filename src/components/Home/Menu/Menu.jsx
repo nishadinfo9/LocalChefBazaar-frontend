@@ -4,6 +4,13 @@ import { FoodCard } from "./FoodCard";
 import Button from "../../../utils/Button";
 
 export const FoodSlider = () => {
+  const foods = [
+    { id: 1, color: "bg-red-400", title: "Berries Salad", price: "$5.00" },
+    { id: 2, color: "bg-orange-400", title: "Healthy Salad", price: "$3.00" },
+    { id: 3, color: "bg-green-400", title: "Green Bowl", price: "$4.00" },
+    { id: 4, color: "bg-indigo-400", title: "Protein Mix", price: "$5.00" },
+  ];
+
   return (
     <div className="w-full bg-[#FCEEDD] flex justify-center">
       <div className="relative w-full max-w-7xl px-4 md:px-0">
@@ -22,33 +29,11 @@ export const FoodSlider = () => {
         scrollbar-hide
       "
         >
-          <div className="min-w-[220px] snap-center md:min-w-0">
-            <FoodCard color="bg-red-400" title="Berries Salad" price="$5.00" />
-          </div>
-
-          <div className="min-w-[220px] snap-center md:min-w-0">
-            <FoodCard
-              color="bg-orange-400"
-              title="Healthy Salad"
-              price="$3.00"
-            />
-          </div>
-
-          <div className="min-w-[220px] snap-center md:min-w-0">
-            <FoodCard
-              color="bg-green-400"
-              title="Berries Salad"
-              price="$4.00"
-            />
-          </div>
-
-          <div className="min-w-[220px] snap-center md:min-w-0">
-            <FoodCard
-              color="bg-indigo-400"
-              title="Healthy Salad"
-              price="$5.00"
-            />
-          </div>
+          {foods.map((food) => (
+            <div key={food.id} className="snap-center">
+              <FoodCard {...food} />
+            </div>
+          ))}
         </div>
 
         <div

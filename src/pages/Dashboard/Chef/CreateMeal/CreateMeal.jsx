@@ -11,6 +11,15 @@ import useFetch from "../../../../hooks/useFetch";
 import usePatch from "../../../../hooks/usePatch";
 import Loader from "../../../../utils/Loader";
 
+const categories = [
+  { label: "Main Dish", value: "main-dish" },
+  { label: "Fast Food", value: "fast-food" },
+  { label: "Snacks", value: "snacks" },
+  { label: "Healthy", value: "healthy" },
+  { label: "Italian", value: "italian" },
+  { label: "Dessert", value: "dessert" },
+  { label: "Drinks", value: "drinks" },
+];
 const CreateMeal = () => {
   const [mealParams] = useSearchParams();
   const mealId = mealParams.get("mealId");
@@ -50,7 +59,7 @@ const CreateMeal = () => {
         ingredients: data.meal.ingredients,
       });
     }
-  }, [data?.meal]);
+  }, [data?.meal, isEdit, reset]);
 
   const onSubmitForm = (data) => {
     const {
@@ -63,6 +72,7 @@ const CreateMeal = () => {
       userEmail,
       ingredients,
       foodImage,
+      category,
     } = data;
 
     const formData = new FormData();
@@ -73,6 +83,10 @@ const CreateMeal = () => {
     formData.append("price", price);
     formData.append("rating", rating);
     formData.append("userEmail", userEmail);
+    formData.append(
+      "category",
+      categories.find((c) => c.label === category).value,
+    );
 
     ingredients.forEach((ing) => formData.append("ingredients", ing));
 
@@ -87,7 +101,7 @@ const CreateMeal = () => {
           onSuccess: () => {
             navigate("/dashboard/my-meals");
           },
-        }
+        },
       );
     } else {
       addMeals.mutate(formData, {
@@ -135,6 +149,13 @@ const CreateMeal = () => {
           type="Number"
           {...register("price", { required: true })}
         />
+        {/* Category select */}
+        <Select
+          label={"Category"}
+          options={categories.map((c) => c.label)}
+          {...register("category", { required: true })}
+        />
+
         {/* rating */}
         <Select
           label={"Rating"}

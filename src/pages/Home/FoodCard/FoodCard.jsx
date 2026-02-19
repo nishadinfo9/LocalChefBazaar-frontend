@@ -21,13 +21,12 @@ const FoodCard = memo(({ meal }) => {
       <div className="card-body p-0 mt-4 flex flex-col gap-3">
         {/* Title and Rating */}
         <div className="flex items-center justify-between">
-          <h2 className="card-title text-lg font-semibold pr-12">
+          <h2 className="card-title text-lg font-medium pr-12">
             {foodName.slice(0, 20)}
             {foodName.length > 20 && "..."}
           </h2>
           <div className=" text-yellow-400 flex items-center">
             <h3 className="text-xl font-semibold">{rating}</h3>
-            {rating < 5 ? <FaStarHalfAlt size={25} /> : <FaStar size={25} />}
           </div>
         </div>
 
